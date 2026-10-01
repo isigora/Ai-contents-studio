@@ -80,3 +80,23 @@ Startup script now verifies HTTP readiness and reports failure instead of uncond
 Browser: private forwarded homepage opened successfully; /studio verification in progress.
 P0/P1 remain PARTIAL. P2/P3 remain NOT STARTED. No production certification.
 Next: finish authenticated browser/mobile/media flow, then resolve remaining release gates.
+
+## Checkpoint 003 — development login preparation (2026-10-01 UTC)
+Source baseline: 2581b37963c4008768d1cba30a8a72e085ca95de, main; clean worktree before changes.
+Actual environment: existing fuzzy-space-spork Codespace, Node 24.21.0, APP_MODE local,
+no external DATABASE_URL; PGlite .data/postgres. No server process was present initially.
+Read-only query before server startup found zero auth_user rows. Existing data was preserved.
+Started scripts/start-codespaces.sh; HTTP readiness passed and /studio login UI loaded.
+Added scripts/dev-test-account.mjs and docs/DEV_LOGIN.md. Generated one private local
+review account with its own Development Review workspace and owner membership.
+Credentials stay in ignored .data/dev-test-login.json with mode 0600 and are never printed.
+Fresh checks: signup API succeeded; password signin with emailVerified=false succeeded;
+/api/me and workspace GET succeeded with owner role; repeated helper runs reused the
+account/workspace; APP_MODE=production guard rejected execution before mutation.
+Verified Git ignores .env.local and the credential file. No operational mail was enabled.
+Installed Better Auth source confirms verification is conditional and password reset
+requires the absent sendResetPassword callback. Signup is not disabled in UI/config.
+Browser /studio logged-out rendering PASS; authenticated browser/workspace journey
+PENDING secure user credential entry. No claim of full P0/P1 completion or mobile testing.
+Original reported signup failure is not conclusively reproduced; current API signup works.
+Next: secure browser login, verify workspace UI, update this checkpoint with actual results.
