@@ -1,0 +1,18 @@
+{
+  "name": "Content Studio P0 + P1",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24-bookworm",
+  "remoteUser": "node",
+  "forwardPorts": [
+    4173
+  ],
+  "portsAttributes": {
+    "4173": {
+      "label": "Content Studio",
+      "onAutoForward": "notify",
+      "protocol": "http"
+    }
+  },
+  "postCreateCommand": "unzip -o content-studio-source.zip && sudo apt-get update && sudo apt-get install -y ffmpeg && sudo npm install --global pnpm@11.25.0 && pnpm install --frozen-lockfile && node scripts/setup-codespaces.mjs",
+  "postStartCommand": "bash scripts/start-codespaces.sh",
+  "waitFor": "postCreateCommand"
+}
