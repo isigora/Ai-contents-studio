@@ -1,9 +1,9 @@
 # AI Content Studio — Project Status
 
-Last updated: 2026-10-01 18:00 KST (initial recovery checkpoint).
+Last updated: 2026-10-01T09:03:49.707951+00:00.
 Repository: isigora/Ai-contents-studio. Branch: main.
 Current phase: P0/P1 review build recovery and Codespaces verification.
-Runnable package version: 0.2.0 (P0 + P1), inside content-studio-source.zip.
+Runnable package version: 0.2.0 (P0 + P1), extracted into the repository; original ZIP retained.
 Latest verified source archive commit: c08243657fc5324df542c518ee7eb4d99b1fceff.
 Last saved configuration commit at recovery: 03c5498decc5a6128f1fa9398038c09f47391df7.
 No commit is yet certified as a fully tested production release.
@@ -71,3 +71,12 @@ For untested interruption checkpoints, explicitly mark WIP and never update the 
 Never commit .env.local, credentials, .data, node_modules, logs containing secrets or customer uploads.
 Do not force-push, discard unknown changes, delete data, incur new cost, change scope/specification or introduce destructive architecture changes without required user authorization.
 Codespaces is a development preview, not a 24-hour production server.
+
+## Checkpoint 002 — source recovery and Codespaces validation
+Original archived files matched byte-for-byte before testing and the startup fix.
+Fresh Codespaces validation: 26 acceptance + 4 persistence + 3 UI language checks PASS; pnpm typecheck PASS; pnpm build PASS. Machine-readable evidence is in docs/*-results.json.
+Source is now tracked as individual files. Original master specification remains unchanged.
+Startup script now verifies HTTP readiness and reports failure instead of unconditional success. Cold start and already-running paths verified.
+Browser: private forwarded homepage opened successfully; /studio verification in progress.
+P0/P1 remain PARTIAL. P2/P3 remain NOT STARTED. No production certification.
+Next: finish authenticated browser/mobile/media flow, then resolve remaining release gates.

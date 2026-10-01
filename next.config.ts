@@ -1,0 +1,3 @@
+import type {NextConfig} from 'next';
+const config:NextConfig={distDir:process.env.NODE_ENV==='development'?'.next-dev':'.next',serverExternalPackages:['@electric-sql/pglite','pg','better-auth','@better-auth/drizzle-adapter'],allowedDevOrigins:['terminal.local',...(process.env.CODESPACE_NAME?[`${process.env.CODESPACE_NAME}-4173.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN||'app.github.dev'}`]:[])],experimental:{cpus:2},async headers(){return [{source:'/:path*',headers:[{key:'X-Content-Type-Options',value:'nosniff'},{key:'Referrer-Policy',value:'same-origin'},{key:'X-Frame-Options',value:'DENY'}]}]}};
+export default config;

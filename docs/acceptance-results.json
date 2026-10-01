@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-01T09:01:08.981Z",
+  "engine": "server-side persistent PostgreSQL/PGlite",
+  "tests": [
+    {
+      "name": "가입: 별도 계정 A/B와 독립 세션 생성",
+      "status": "PASS"
+    },
+    {
+      "name": "작업공간 생성·전환 데이터",
+      "status": "PASS"
+    },
+    {
+      "name": "고객군·제품 저장과 다국어 원문",
+      "status": "PASS"
+    },
+    {
+      "name": "다른 고객 Workspace/제품 GET·PUT 접근 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "교차 Workspace 외래키 연결 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "한국어 제품 페이지·중국어 SNS 생성 및 영구 저장",
+      "status": "PASS"
+    },
+    {
+      "name": "근거 없는 매출 50% 증가 주장 제외",
+      "status": "PASS"
+    },
+    {
+      "name": "본문 속 위험 주장과 미확인 증거도 제외",
+      "status": "PASS"
+    },
+    {
+      "name": "같은 요청 재전송 및 동시 요청은 콘텐츠 한 개 생성",
+      "status": "PASS"
+    },
+    {
+      "name": "가격 변경: 과거 스냅샷 보존·stale 표시·새 가격 반영",
+      "status": "PASS"
+    },
+    {
+      "name": "수정 경쟁 충돌·오래된 원천 버전 생성 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "편집 버전 저장·검토 상태·이전 버전 보존·내보내기",
+      "status": "PASS"
+    },
+    {
+      "name": "파일 업로드·사적 다운로드·다른 고객 파일/초안 접근 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "불량 업로드 거절·PDF 격리·정상 재시도",
+      "status": "PASS"
+    },
+    {
+      "name": "AI 실패 기록·원천 보존·재시도 성공",
+      "status": "PASS"
+    },
+    {
+      "name": "Viewer 권한: 읽기 허용, 저장·생성·파일 업로드 거절",
+      "status": "PASS"
+    },
+    {
+      "name": "비인증/외부 Origin 요청 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 채널 템플릿·제안서·영상 대본·3개 언어",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 다국어 원문 누락 안내·번역을 이용한 가격/근거 덮어쓰기 방지",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 승인 상태 전이·owner 전용 승인·버전 고정",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 승인 이후 편집은 별도 초안·승인 이력 보존",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 원천 변경 후 승인 차단·복제는 원천과 승인 상태 분리",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 실제 사진 업로드·카드 제작·중복 요청·사적 다운로드",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 렌더 실패 상태·재시도·9초 영상 및 SRT 검증",
+      "status": "PASS"
+    },
+    {
+      "name": "P1 미디어·승인·재사용의 작업공간 격리 및 viewer 제한",
+      "status": "PASS"
+    },
+    {
+      "name": "로그아웃 후 기존 세션 무효화",
+      "status": "PASS"
+    }
+  ],
+  "notRun": [
+    "Mobile browser end-to-end",
+    "External PostgreSQL/S3 credentials",
+    "Paid AI provider quality"
+  ]
+}

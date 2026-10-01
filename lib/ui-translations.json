@@ -1,0 +1,1342 @@
+{
+  "개요": {
+    "zh": "概览",
+    "en": "Overview"
+  },
+  "내 비즈니스": {
+    "zh": "我的业务",
+    "en": "My business"
+  },
+  "제품·서비스": {
+    "zh": "产品与服务",
+    "en": "Products & services"
+  },
+  "고객·가치": {
+    "zh": "客户与价值",
+    "en": "Customers & value"
+  },
+  "자산": {
+    "zh": "素材",
+    "en": "Assets"
+  },
+  "콘텐츠 스튜디오": {
+    "zh": "内容工作室",
+    "en": "Content studio"
+  },
+  "콘텐츠 보관함": {
+    "zh": "内容库",
+    "en": "Content library"
+  },
+  "설정": {
+    "zh": "设置",
+    "en": "Settings"
+  },
+  "요청에 실패했습니다.": {
+    "zh": "请求失败。",
+    "en": "Request failed."
+  },
+  "선택해 주세요": {
+    "zh": "请选择",
+    "en": "Select an option"
+  },
+  "인지": {
+    "zh": "认知",
+    "en": "Awareness"
+  },
+  "이해": {
+    "zh": "了解",
+    "en": "Understanding"
+  },
+  "문의": {
+    "zh": "咨询",
+    "en": "Inquiry"
+  },
+  "구매 지원": {
+    "zh": "购买支持",
+    "en": "Purchase support"
+  },
+  "저장 실패 · 입력은 유지됩니다": {
+    "zh": "保存失败，输入已保留",
+    "en": "Save failed; input retained"
+  },
+  "수정 중": {
+    "zh": "编辑中",
+    "en": "Editing"
+  },
+  "저장하지 않은 변경을 닫을까요?": {
+    "zh": "关闭未保存的更改？",
+    "en": "Discard unsaved changes?"
+  },
+  "저장 중": {
+    "zh": "保存中",
+    "en": "Saving"
+  },
+  "저장됨": {
+    "zh": "已保存",
+    "en": "Saved"
+  },
+  "저장했습니다.": {
+    "zh": "已保存。",
+    "en": "Saved."
+  },
+  "이전 요청이 처리 중입니다. 보관함에서 확인해 주세요.": {
+    "zh": "上一个请求正在处理，请查看内容库。",
+    "en": "The previous request is processing. Check the library."
+  },
+  "초안을 저장했습니다.": {
+    "zh": "草稿已保存。",
+    "en": "Draft saved."
+  },
+  "새 버전을 저장했습니다.": {
+    "zh": "新版本已保存。",
+    "en": "New version saved."
+  },
+  "작업공간을 만들었습니다.": {
+    "zh": "工作区已创建。",
+    "en": "Workspace created."
+  },
+  "예시 고객군과 제품을 추가했습니다. 실제 판매 정보로 사용하지 마세요.": {
+    "zh": "示例客户和产品已添加，请勿作为真实销售信息使用。",
+    "en": "Example customer and product added. Do not use as real sales information."
+  },
+  "이메일과 비밀번호를 확인해 주세요.": {
+    "zh": "请检查邮箱和密码。",
+    "en": "Check your email and password."
+  },
+  "첫 이야기를 시작하세요.": {
+    "zh": "开始您的第一个故事。",
+    "en": "Start your first story."
+  },
+  "다시 만나 반가워요.": {
+    "zh": "欢迎回来。",
+    "en": "Welcome back."
+  },
+  "회사 정보와 콘텐츠를 이어서 관리하세요.": {
+    "zh": "继续管理公司信息与内容。",
+    "en": "Continue managing your business information and content."
+  },
+  "로그인": {
+    "zh": "登录",
+    "en": "Sign in"
+  },
+  "계정 만들기": {
+    "zh": "创建账号",
+    "en": "Create account"
+  },
+  "이름": {
+    "zh": "名称",
+    "en": "Name"
+  },
+  "이메일": {
+    "zh": "邮箱",
+    "en": "Email"
+  },
+  "비밀번호": {
+    "zh": "密码",
+    "en": "Password"
+  },
+  "10자 이상 입력해 주세요.": {
+    "zh": "请输入至少10个字符。",
+    "en": "Enter at least 10 characters."
+  },
+  "이 검토용 버전에서는 이메일 인증과 비밀번호 재설정 메일을 발송하지 않습니다.": {
+    "zh": "此评审版本不发送邮箱验证或密码重置邮件。",
+    "en": "This review build does not send verification or password reset emails."
+  },
+  "← 소개 페이지": {
+    "zh": "← 产品介绍",
+    "en": "← Introduction"
+  },
+  "첫 초안을 기다리고 있어요": {
+    "zh": "等待您的第一份草稿",
+    "en": "Ready for your first draft"
+  },
+  "왼쪽에서 제품과 목적을 선택하면 여기에 결과가 표시됩니다.": {
+    "zh": "在左侧选择产品和目标，结果将显示在这里。",
+    "en": "Choose a product and goal on the left to see the result here."
+  },
+  "검토 완료": {
+    "zh": "已检查",
+    "en": "Reviewed"
+  },
+  "검토 전": {
+    "zh": "待检查",
+    "en": "Not reviewed"
+  },
+  "버전": {
+    "zh": "版本",
+    "en": "Version"
+  },
+  "원천 정보 변경됨 · 기존 초안은 당시 내용으로 보존됩니다.": {
+    "zh": "来源信息已更改，原草稿保留当时的内容。",
+    "en": "Source information changed. Existing drafts retain their original content."
+  },
+  "새 정보로 재생성": {
+    "zh": "按新信息重新生成",
+    "en": "Regenerate from updated information"
+  },
+  "초안": {
+    "zh": "草稿",
+    "en": "Draft"
+  },
+  "사용한 사실": {
+    "zh": "使用的事实",
+    "en": "Facts used"
+  },
+  "버전 이력": {
+    "zh": "版本记录",
+    "en": "Version history"
+  },
+  "승인·재사용": {
+    "zh": "审批与复用",
+    "en": "Approval & reuse"
+  },
+  "미디어": {
+    "zh": "媒体",
+    "en": "Media"
+  },
+  "제목": {
+    "zh": "标题",
+    "en": "Title"
+  },
+  "이전 버전 · 읽기 전용": {
+    "zh": "历史版本，只读",
+    "en": "Previous version — read only"
+  },
+  "본문 · 직접 수정할 수 있습니다": {
+    "zh": "正文，可直接编辑",
+    "en": "Body — editable"
+  },
+  "검토 상태": {
+    "zh": "检查状态",
+    "en": "Review status"
+  },
+  "초안 · 검토 전": {
+    "zh": "草稿，待检查",
+    "en": "Draft — not reviewed"
+  },
+  "직접 확인함 · 검토 완료": {
+    "zh": "已由本人检查",
+    "en": "Personally reviewed"
+  },
+  "본문을 복사했습니다.": {
+    "zh": "正文已复制。",
+    "en": "Body copied."
+  },
+  "복사": {
+    "zh": "复制",
+    "en": "Copy"
+  },
+  "저장본 TXT": {
+    "zh": "已保存的 TXT",
+    "en": "Saved TXT"
+  },
+  "새 버전 저장": {
+    "zh": "保存新版本",
+    "en": "Save new version"
+  },
+  "직접 편집한 버전입니다. 수정 내용의 사실 여부를 확인해 주세요.": {
+    "zh": "此版本经过手动编辑，请核实修改内容的真实性。",
+    "en": "This version was edited manually. Verify the changes for accuracy."
+  },
+  "선택한 버전의 문구·원천 스냅샷을 새 초안으로 복제합니다. 기존 승인 상태는 이어지지 않습니다.": {
+    "zh": "将所选版本的文案和来源快照复制为新草稿，不继承批准状态。",
+    "en": "Copy this version and its source snapshot into a new draft. Approval does not carry over."
+  },
+  "생성 당시의 원천 정보": {
+    "zh": "生成时的来源信息",
+    "en": "Source information at generation"
+  },
+  "대상 고객": {
+    "zh": "目标客户",
+    "en": "Target customer"
+  },
+  "가격": {
+    "zh": "价格",
+    "en": "Price"
+  },
+  "미등록": {
+    "zh": "未登记",
+    "en": "Not provided"
+  },
+  "원천 버전": {
+    "zh": "来源版本",
+    "en": "Source revision"
+  },
+  "확인이 필요한 주장": {
+    "zh": "需要核实的说法",
+    "en": "Claims to verify"
+  },
+  "— 근거 부족으로 생성 본문에 반영하지 않았습니다.": {
+    "zh": "— 因依据不足未纳入正文。",
+    "en": "— Excluded from the body due to insufficient evidence."
+  },
+  "생성 시 제외된 추가 주장이 없습니다. 최종 사실 검토는 필요합니다.": {
+    "zh": "生成时没有排除其他说法，仍需最终核实。",
+    "en": "No additional claims were excluded. Final fact review is still required."
+  },
+  "보완할 정보": {
+    "zh": "待补充信息",
+    "en": "Information to complete"
+  },
+  "근거 출처": {
+    "zh": "证据来源",
+    "en": "Evidence sources"
+  },
+  "출처 확인 ↗": {
+    "zh": "查看来源 ↗",
+    "en": "View source ↗"
+  },
+  "버전을 선택하면 초안 탭에서 당시 내용을 볼 수 있습니다.": {
+    "zh": "选择版本后可在草稿标签查看当时的内容。",
+    "en": "Select a version to view its text in the Draft tab."
+  },
+  "사실에서 시작하세요.": {
+    "zh": "从事实出发。",
+    "en": "Start with facts."
+  },
+  "검증된 정보가 더 좋은": {
+    "zh": "经核实的信息是",
+    "en": "Verified information is"
+  },
+  "콘텐츠의 바탕이 됩니다.": {
+    "zh": "优质内容的基础。",
+    "en": "the foundation of good content."
+  },
+  "기본 생성 모드": {
+    "zh": "基础生成模式",
+    "en": "Basic generation mode"
+  },
+  "AI 연결됨": {
+    "zh": "AI 已连接",
+    "en": "AI connected"
+  },
+  "로그아웃": {
+    "zh": "退出登录",
+    "en": "Sign out"
+  },
+  "작업공간 선택": {
+    "zh": "选择工作区",
+    "en": "Select workspace"
+  },
+  "작업공간을 만드세요": {
+    "zh": "创建工作区",
+    "en": "Create a workspace"
+  },
+  "작업공간 추가": {
+    "zh": "添加工作区",
+    "en": "Add workspace"
+  },
+  "기본 문안 · AI 미연결": {
+    "zh": "基础文案，未连接 AI",
+    "en": "Basic copy · AI disconnected"
+  },
+  "내 비즈니스의 공간을 만드세요": {
+    "zh": "创建您的业务空间",
+    "en": "Create a space for your business"
+  },
+  "회사별로 제품 정보와 콘텐츠를 관리할 수 있습니다.": {
+    "zh": "分别管理各公司的产品信息与内容。",
+    "en": "Manage each company's product information and content separately."
+  },
+  "작업공간 만들기": {
+    "zh": "创建工作区",
+    "en": "Create workspace"
+  },
+  "비즈니스의 지식을, 다음 콘텐츠로 연결하세요.": {
+    "zh": "将业务知识连接到下一份内容。",
+    "en": "Turn business knowledge into your next content."
+  },
+  "브랜드의 기준과 회사 정보를 관리하세요.": {
+    "zh": "管理品牌标准与公司信息。",
+    "en": "Manage brand guidelines and company information."
+  },
+  "고객에게 전달할 제품의 사실을 모으세요.": {
+    "zh": "收集面向客户的产品事实。",
+    "en": "Collect product facts to share with customers."
+  },
+  "누구의 어떤 문제를 해결하는지 정리하세요.": {
+    "zh": "明确为谁解决什么问题。",
+    "en": "Define whose problem you solve."
+  },
+  "사진과 문서를 작업공간에 보관하세요.": {
+    "zh": "将照片与文档保存在工作区。",
+    "en": "Keep photos and documents in your workspace."
+  },
+  "고객과 목적을 선택하고 첫 문장을 만들어 보세요.": {
+    "zh": "选择客户与目标，开始写作。",
+    "en": "Choose a customer and goal to start writing."
+  },
+  "완성해 가는 이야기들을 한곳에서.": {
+    "zh": "在一个地方完善您的内容。",
+    "en": "Develop your content in one place."
+  },
+  "작업공간과 생성 환경을 확인하세요.": {
+    "zh": "查看工作区与生成设置。",
+    "en": "Check workspace and generation settings."
+  },
+  "제품·서비스 추가": {
+    "zh": "添加产品或服务",
+    "en": "Add product or service"
+  },
+  "고객군 추가": {
+    "zh": "添加客户群",
+    "en": "Add audience"
+  },
+  "어떤 이야기를": {
+    "zh": "准备开始",
+    "en": "What story"
+  },
+  "시작할까요?": {
+    "zh": "什么故事？",
+    "en": "will you tell?"
+  },
+  "제품에 대한 사실을 정리했다면,": {
+    "zh": "整理好产品事实后，",
+    "en": "Once you have organized the product facts,"
+  },
+  "고객에게 전할 콘텐츠를 만들어 보세요.": {
+    "zh": "开始制作面向客户的内容。",
+    "en": "create content for your customers."
+  },
+  "콘텐츠 만들기": {
+    "zh": "制作内容",
+    "en": "Create content"
+  },
+  "정보 보완하기": {
+    "zh": "补充信息",
+    "en": "Complete information"
+  },
+  "제품": {
+    "zh": "产品",
+    "en": "Product"
+  },
+  "고객": {
+    "zh": "客户",
+    "en": "Customer"
+  },
+  "근거": {
+    "zh": "依据",
+    "en": "Evidence"
+  },
+  "다음 콘텐츠의 출발점": {
+    "zh": "下一份内容的起点",
+    "en": "The starting point for your next content"
+  },
+  "등록된 제품·서비스": {
+    "zh": "已登记产品与服务",
+    "en": "Products & services"
+  },
+  "대상 고객군": {
+    "zh": "目标客户群",
+    "en": "Audiences"
+  },
+  "저장한 콘텐츠": {
+    "zh": "已保存内容",
+    "en": "Saved content"
+  },
+  "개": {
+    "zh": "项",
+    "en": "items"
+  },
+  "최근 콘텐츠": {
+    "zh": "最近内容",
+    "en": "Recent content"
+  },
+  "모두 보기 ↗": {
+    "zh": "查看全部 ↗",
+    "en": "View all ↗"
+  },
+  "아직 저장한 초안이 없어요": {
+    "zh": "还没有保存的草稿",
+    "en": "No saved drafts yet"
+  },
+  "제품을 등록하고 첫 콘텐츠를 만들어 보세요.": {
+    "zh": "登记产品并制作第一份内容。",
+    "en": "Register a product and create your first content."
+  },
+  "권장 보강": {
+    "zh": "建议补充",
+    "en": "Recommended additions"
+  },
+  "등록된 근거를 다시 확인하세요.": {
+    "zh": "请重新确认已有依据。",
+    "en": "Recheck the registered evidence."
+  },
+  "검증된 근거를 추가해 주세요.": {
+    "zh": "请添加经核实的依据。",
+    "en": "Add verified evidence."
+  },
+  "첫 제품부터 시작하세요.": {
+    "zh": "从第一个产品开始。",
+    "en": "Start with your first product."
+  },
+  "회사 정보 → 대상 고객 → 제품의 사실 순서로 입력하면 편리합니다.": {
+    "zh": "建议依次输入公司信息、目标客户、产品事实。",
+    "en": "Start with company information, then audience and product facts."
+  },
+  "예시 데이터로 흐름 살펴보기": {
+    "zh": "用示例数据体验流程",
+    "en": "Explore with example data"
+  },
+  "예시임이 표시된 고객군과 제품 각 1개를 추가합니다.": {
+    "zh": "添加明确标为示例的一个客户群和一个产品。",
+    "en": "Adds one audience and one product clearly marked as examples."
+  },
+  "회사 정보를 저장했습니다.": {
+    "zh": "公司信息已保存。",
+    "en": "Company information saved."
+  },
+  "변경 사항을 닫을까요?": {
+    "zh": "关闭更改？",
+    "en": "Discard changes?"
+  },
+  "목록": {
+    "zh": "列表",
+    "en": "List"
+  },
+  "필수 항목부터 입력하세요": {
+    "zh": "先填写必填项目",
+    "en": "Start with required fields"
+  },
+  "정보 수정": {
+    "zh": "修改信息",
+    "en": "Edit information"
+  },
+  "새 제품·서비스": {
+    "zh": "新产品或服务",
+    "en": "New product or service"
+  },
+  "새 고객군": {
+    "zh": "新客户群",
+    "en": "New audience"
+  },
+  "고객군 이름": {
+    "zh": "客户群名称",
+    "en": "Audience name"
+  },
+  "예: 야외 운동을 시작하려는 중장년": {
+    "zh": "例如：想开始户外运动的中老年人",
+    "en": "Example: adults starting an outdoor activity"
+  },
+  "어떤 상황인가요": {
+    "zh": "处于什么情境",
+    "en": "Customer context"
+  },
+  "고객이 해내고 싶은 일": {
+    "zh": "客户想完成什么",
+    "en": "Customer's task"
+  },
+  "현재 사용하는 대안": {
+    "zh": "目前使用的替代方案",
+    "en": "Current alternatives"
+  },
+  "겪고 있는 문제": {
+    "zh": "面临的问题",
+    "en": "Problem"
+  },
+  "문제로 잃는 시간·비용": {
+    "zh": "问题造成的时间或成本损失",
+    "en": "Time or cost of the problem"
+  },
+  "원하는 변화": {
+    "zh": "期望的变化",
+    "en": "Desired outcome"
+  },
+  "확인 상태": {
+    "zh": "核实状态",
+    "en": "Verification status"
+  },
+  "제안 · 확인 필요": {
+    "zh": "建议，待核实",
+    "en": "Suggested — needs review"
+  },
+  "사용자가 확인함": {
+    "zh": "用户已确认",
+    "en": "User confirmed"
+  },
+  "기본 정보": {
+    "zh": "基本信息",
+    "en": "Basic information"
+  },
+  "문제 해결·가치": {
+    "zh": "解决问题与价值",
+    "en": "Problem & value"
+  },
+  "증거·가격": {
+    "zh": "证据与价格",
+    "en": "Evidence & pricing"
+  },
+  "자산·번역": {
+    "zh": "素材与翻译",
+    "en": "Assets & translations"
+  },
+  "제품·서비스명": {
+    "zh": "产品或服务名称",
+    "en": "Product or service name"
+  },
+  "종류": {
+    "zh": "类型",
+    "en": "Type"
+  },
+  "서비스": {
+    "zh": "服务",
+    "en": "Service"
+  },
+  "카테고리": {
+    "zh": "类别",
+    "en": "Category"
+  },
+  "대상 고객 *": {
+    "zh": "目标客户 *",
+    "en": "Target customer *"
+  },
+  "고객·가치 메뉴에서 고객군을 먼저 등록해 주세요.": {
+    "zh": "请先在客户与价值菜单登记客户群。",
+    "en": "Register an audience in Customers & value first."
+  },
+  "실제 제공하는 것": {
+    "zh": "实际提供的内容",
+    "en": "What you actually provide"
+  },
+  "확인된 사실로만 설명하세요.": {
+    "zh": "仅使用已确认的事实描述。",
+    "en": "Describe only confirmed facts."
+  },
+  "고객의 다음 행동 (CTA)": {
+    "zh": "客户的下一步行动 (CTA)",
+    "en": "Customer's next action (CTA)"
+  },
+  "예: 체험 일정 문의하기": {
+    "zh": "例如：咨询体验时间",
+    "en": "Example: ask about session dates"
+  },
+  "어떻게 이용하나요": {
+    "zh": "如何使用",
+    "en": "How it works"
+  },
+  "기능·특징": {
+    "zh": "功能与特点",
+    "en": "Features"
+  },
+  "고객에게 어떤 도움이 되나요": {
+    "zh": "如何帮助客户",
+    "en": "Customer benefits"
+  },
+  "선택할 이유": {
+    "zh": "选择理由",
+    "en": "Reasons to choose"
+  },
+  "이용 조건·지원·보증": {
+    "zh": "使用条件、支持与保证",
+    "en": "Terms, support & guarantees"
+  },
+  "통화": {
+    "zh": "币种",
+    "en": "Currency"
+  },
+  "가격 적용 시작일": {
+    "zh": "价格生效日期",
+    "en": "Price valid from"
+  },
+  "가격 적용 종료일": {
+    "zh": "价格截止日期",
+    "en": "Price valid until"
+  },
+  "가격의 출처": {
+    "zh": "价格来源",
+    "en": "Price source"
+  },
+  "가격·이용 조건": {
+    "zh": "价格与使用条件",
+    "en": "Price & usage terms"
+  },
+  "주장과 증거": {
+    "zh": "说法与证据",
+    "en": "Claims & evidence"
+  },
+  "확인한 근거와 날짜가 있는 주장만 생성에 사용합니다.": {
+    "zh": "仅使用带有核实依据和日期的说法生成内容。",
+    "en": "Only claims with verified evidence and dates are used."
+  },
+  "증명하려는 주장": {
+    "zh": "需要证明的说法",
+    "en": "Claim to support"
+  },
+  "근거 URL": {
+    "zh": "证据 URL",
+    "en": "Evidence URL"
+  },
+  "또는 업로드한 근거 파일": {
+    "zh": "或已上传的证据文件",
+    "en": "Or an uploaded evidence file"
+  },
+  "선택 안 함": {
+    "zh": "不选择",
+    "en": "None"
+  },
+  "미확인": {
+    "zh": "未核实",
+    "en": "Unverified"
+  },
+  "직접 확인함": {
+    "zh": "本人已核实",
+    "en": "Personally verified"
+  },
+  "확인일": {
+    "zh": "核实日期",
+    "en": "Verification date"
+  },
+  "이 근거 삭제": {
+    "zh": "删除此证据",
+    "en": "Remove this evidence"
+  },
+  "근거 추가": {
+    "zh": "添加证据",
+    "en": "Add evidence"
+  },
+  "연결할 자산": {
+    "zh": "关联素材",
+    "en": "Link an asset"
+  },
+  "자산 선택": {
+    "zh": "选择素材",
+    "en": "Choose an asset"
+  },
+  "자산 연결 해제": {
+    "zh": "取消素材关联",
+    "en": "Unlink asset"
+  },
+  "언어별 승인 문구": {
+    "zh": "各语言已确认文案",
+    "en": "Approved language copy"
+  },
+  "AI 미연결 시 아래 번역을 사용합니다. 비어 있으면 원문을 보존하고 번역 누락을 표시합니다.": {
+    "zh": "未连接 AI 时使用以下翻译；空白字段保留原文并提示翻译缺失。",
+    "en": "Without AI, these translations are used. Empty fields retain the original and show a missing-translation notice."
+  },
+  "번역 입력": {
+    "zh": "输入翻译",
+    "en": "Translation"
+  },
+  "제품명": {
+    "zh": "产品名称",
+    "en": "Product name"
+  },
+  "제공 내용": {
+    "zh": "提供的内容",
+    "en": "Offering"
+  },
+  "고객 문제": {
+    "zh": "客户问题",
+    "en": "Customer problem"
+  },
+  "특징": {
+    "zh": "特点",
+    "en": "Features"
+  },
+  "혜택": {
+    "zh": "益处",
+    "en": "Benefits"
+  },
+  "이용 방법": {
+    "zh": "使用方法",
+    "en": "How it works"
+  },
+  "이용 조건·지원": {
+    "zh": "使用条件与支持",
+    "en": "Terms & support"
+  },
+  "다음 행동": {
+    "zh": "下一步行动",
+    "en": "Next action"
+  },
+  "저장 중…": {
+    "zh": "保存中…",
+    "en": "Saving…"
+  },
+  "정보 저장": {
+    "zh": "保存信息",
+    "en": "Save information"
+  },
+  "저장하면 다음 생성부터 반영됩니다.": {
+    "zh": "保存后在下次生成时生效。",
+    "en": "Saved changes apply to the next generation."
+  },
+  "목록 검색": {
+    "zh": "搜索列表",
+    "en": "Search list"
+  },
+  "이름으로 검색": {
+    "zh": "按名称搜索",
+    "en": "Search by name"
+  },
+  "개 등록됨": {
+    "zh": "项已登记",
+    "en": "registered"
+  },
+  "고객군": {
+    "zh": "客户群",
+    "en": "Audience"
+  },
+  "상세 정보를 보완해 주세요.": {
+    "zh": "请补充详细信息。",
+    "en": "Complete the details."
+  },
+  "가격 미등록": {
+    "zh": "价格未登记",
+    "en": "Price not provided"
+  },
+  "정보 보기": {
+    "zh": "查看信息",
+    "en": "View information"
+  },
+  "콘텐츠 만들기 ↗": {
+    "zh": "制作内容 ↗",
+    "en": "Create content ↗"
+  },
+  "이 자료를 보관할까요? 이전 콘텐츠는 유지됩니다.": {
+    "zh": "归档此资料？以前的内容将保留。",
+    "en": "Archive this item? Previous content will remain."
+  },
+  "보관하기": {
+    "zh": "归档",
+    "en": "Archive"
+  },
+  "아직 등록된 제품이 없어요": {
+    "zh": "还没有登记产品",
+    "en": "No products registered yet"
+  },
+  "고객을 구체적으로 정의해 보세요": {
+    "zh": "具体定义您的客户",
+    "en": "Define your customer"
+  },
+  "한 번 정리한 정보가 다음 콘텐츠에서도 사용됩니다.": {
+    "zh": "整理一次的信息可用于后续内容。",
+    "en": "Information you organize can be reused in future content."
+  },
+  "첫 정보 등록하기": {
+    "zh": "登记第一条信息",
+    "en": "Add your first information"
+  },
+  "제품의 사진과 근거를 보관하세요.": {
+    "zh": "保存产品照片与依据。",
+    "en": "Keep product photos and evidence."
+  },
+  "PNG · JPG · PDF · UTF-8 TXT / 최대 5MB": {
+    "zh": "PNG · JPG · PDF · UTF-8 TXT / 最大 5MB",
+    "en": "PNG · JPG · PDF · UTF-8 TXT / up to 5MB"
+  },
+  "업로드 중…": {
+    "zh": "上传中…",
+    "en": "Uploading…"
+  },
+  "파일 선택": {
+    "zh": "选择文件",
+    "en": "Choose file"
+  },
+  "자산 파일 업로드": {
+    "zh": "上传素材文件",
+    "en": "Upload asset file"
+  },
+  "파일을 보관했습니다.": {
+    "zh": "文件已保存。",
+    "en": "File saved."
+  },
+  "업로드할 파일의 사용권·출처 메모": {
+    "zh": "上传文件的使用权与来源备注",
+    "en": "File rights & source note"
+  },
+  "예: 직접 촬영, 자사 소유 자료": {
+    "zh": "例如：自行拍摄，公司所有",
+    "en": "Example: photographed by us, company owned"
+  },
+  "사진은 안전한 PNG로 변환됩니다. PDF는 업로드 후 격리 보관되며, 별도 안전 검사가 연결되기 전에는 다운로드·생성 근거 사용이 제한됩니다.": {
+    "zh": "照片将转为安全 PNG。PDF 上传后隔离，在连接安全扫描前无法下载或作为依据。",
+    "en": "Photos are converted to safe PNG. PDFs are quarantined until a safety scanner is connected; download and evidence use are blocked."
+  },
+  "사용 가능": {
+    "zh": "可使用",
+    "en": "Ready"
+  },
+  "격리 보관": {
+    "zh": "隔离存储",
+    "en": "Quarantined"
+  },
+  "사용권 메모 없음": {
+    "zh": "无使用权备注",
+    "en": "No rights note"
+  },
+  "다운로드": {
+    "zh": "下载",
+    "en": "Download"
+  },
+  "무엇을 만들까요?": {
+    "zh": "想制作什么？",
+    "en": "What would you like to create?"
+  },
+  "01 / 목표": {
+    "zh": "01 / 目标",
+    "en": "01 / Goal"
+  },
+  "제품 알리기": {
+    "zh": "宣传产品",
+    "en": "Introduce the product"
+  },
+  "가치 설명하기": {
+    "zh": "解释价值",
+    "en": "Explain the value"
+  },
+  "대화 시작하기": {
+    "zh": "开始对话",
+    "en": "Start a conversation"
+  },
+  "선택 돕기": {
+    "zh": "帮助选择",
+    "en": "Support a decision"
+  },
+  "02 / 원천 정보": {
+    "zh": "02 / 来源信息",
+    "en": "02 / Source information"
+  },
+  "03 / 표현 방식": {
+    "zh": "03 / 表达方式",
+    "en": "03 / Expression"
+  },
+  "채널 템플릿": {
+    "zh": "渠道模板",
+    "en": "Channel template"
+  },
+  "콘텐츠 형식": {
+    "zh": "内容形式",
+    "en": "Content format"
+  },
+  "언어": {
+    "zh": "语言",
+    "en": "Language"
+  },
+  "한국어": {
+    "zh": "韩语",
+    "en": "Korean"
+  },
+  "분량": {
+    "zh": "篇幅",
+    "en": "Length"
+  },
+  "짧게": {
+    "zh": "简短",
+    "en": "Short"
+  },
+  "기본": {
+    "zh": "标准",
+    "en": "Standard"
+  },
+  "자세히": {
+    "zh": "详细",
+    "en": "Detailed"
+  },
+  "톤": {
+    "zh": "语气",
+    "en": "Tone"
+  },
+  "전문적인": {
+    "zh": "专业",
+    "en": "Professional"
+  },
+  "친근한": {
+    "zh": "亲切",
+    "en": "Friendly"
+  },
+  "간결한": {
+    "zh": "简洁",
+    "en": "Concise"
+  },
+  "다음 행동 (선택)": {
+    "zh": "下一步行动（可选）",
+    "en": "Next action (optional)"
+  },
+  "비워 두면 제품에 등록한 문구 사용": {
+    "zh": "留空则使用产品中保存的文案",
+    "en": "Leave blank to use the product CTA"
+  },
+  "추가로 확인할 주장": {
+    "zh": "需要另外核实的说法",
+    "en": "Additional claim to verify"
+  },
+  "본문에 넣고 싶은 주장": {
+    "zh": "希望放入正文的说法",
+    "en": "Claim to include"
+  },
+  "등록된 근거가 없으면 본문에 넣지 않습니다.": {
+    "zh": "没有登记依据时不会写入正文。",
+    "en": "Excluded from the body when evidence is missing."
+  },
+  "초안 생성·저장": {
+    "zh": "生成并保存草稿",
+    "en": "Generate & save draft"
+  },
+  "기본 모드: 등록된 문구를 형식에 맞게 재구성합니다. 언어별 번역이 없으면 원문을 유지합니다.": {
+    "zh": "基础模式：按形式重组已登记文案，缺少翻译时保留原文。",
+    "en": "Basic mode rearranges registered copy. Missing translations retain the original text."
+  },
+  "선택한 회사·제품·고객 정보가 연결된 AI 서비스로 전송됩니다.": {
+    "zh": "所选公司、产品和客户信息将发送至已连接的 AI 服务。",
+    "en": "Selected company, product and customer information is sent to the configured AI service."
+  },
+  "콘텐츠 미리보기": {
+    "zh": "内容预览",
+    "en": "Content preview"
+  },
+  "자동 게시되지 않습니다": {
+    "zh": "不会自动发布",
+    "en": "No automatic publishing"
+  },
+  "보관함으로": {
+    "zh": "返回内容库",
+    "en": "Back to library"
+  },
+  "콘텐츠 검색": {
+    "zh": "搜索内容",
+    "en": "Search content"
+  },
+  "제목으로 검색": {
+    "zh": "按标题搜索",
+    "en": "Search by title"
+  },
+  "목표": {
+    "zh": "目标",
+    "en": "Goal"
+  },
+  "모든 목표": {
+    "zh": "所有目标",
+    "en": "All goals"
+  },
+  "형식": {
+    "zh": "形式",
+    "en": "Format"
+  },
+  "모든 형식": {
+    "zh": "所有形式",
+    "en": "All formats"
+  },
+  "모든 언어": {
+    "zh": "所有语言",
+    "en": "All languages"
+  },
+  "상태": {
+    "zh": "状态",
+    "en": "Status"
+  },
+  "모든 상태": {
+    "zh": "所有状态",
+    "en": "All statuses"
+  },
+  "· 버전": {
+    "zh": "· 版本",
+    "en": "· Version"
+  },
+  "원천 정보 변경됨": {
+    "zh": "来源信息已更改",
+    "en": "Source changed"
+  },
+  "아직 콘텐츠가 없습니다": {
+    "zh": "还没有内容",
+    "en": "No content yet"
+  },
+  "첫 초안을 만들면 이곳에 보관됩니다.": {
+    "zh": "第一份草稿将保存在这里。",
+    "en": "Your first draft will be saved here."
+  },
+  "작업공간": {
+    "zh": "工作区",
+    "en": "Workspace"
+  },
+  "내 권한": {
+    "zh": "我的权限",
+    "en": "My role"
+  },
+  "소유자": {
+    "zh": "所有者",
+    "en": "Owner"
+  },
+  "편집자": {
+    "zh": "编辑者",
+    "en": "Editor"
+  },
+  "열람자": {
+    "zh": "查看者",
+    "en": "Viewer"
+  },
+  "기본 언어": {
+    "zh": "默认语言",
+    "en": "Default language"
+  },
+  "새 작업공간": {
+    "zh": "新工作区",
+    "en": "New workspace"
+  },
+  "생성 환경": {
+    "zh": "生成环境",
+    "en": "Generation setup"
+  },
+  "현재는 외부 AI로 자료를 전송하지 않습니다. 입력한 사실과 등록된 번역을 재구성합니다.": {
+    "zh": "目前不向外部 AI 发送资料，仅重组输入的事实与翻译。",
+    "en": "No data is sent to external AI. Only your facts and registered translations are rearranged."
+  },
+  "생성 시 선택한 자료가 구성된 AI 제공자에게 전달됩니다.": {
+    "zh": "生成时会将所选资料发送至已配置的 AI 提供者。",
+    "en": "Generation sends selected information to the configured AI provider."
+  },
+  "유료 AI 활성화는 제공자·예산을 정한 뒤 서버 설정으로 진행합니다. API 비밀키를 여기에 입력하지 마세요.": {
+    "zh": "付费 AI 需先确定提供者和预算，再配置服务器。请勿在此输入 API 密钥。",
+    "en": "Paid AI requires a provider, budget and server configuration. Do not enter API secrets here."
+  },
+  "회사별로 제품 정보와 콘텐츠를 관리합니다.": {
+    "zh": "按公司管理产品信息与内容。",
+    "en": "Manage product information and content by company."
+  },
+  "회사·작업공간 이름": {
+    "zh": "公司或工作区名称",
+    "en": "Company or workspace name"
+  },
+  "회사 이름": {
+    "zh": "公司名称",
+    "en": "Company name"
+  },
+  "업종": {
+    "zh": "行业",
+    "en": "Industry"
+  },
+  "웹사이트": {
+    "zh": "网站",
+    "en": "Website"
+  },
+  "회사 소개": {
+    "zh": "公司简介",
+    "en": "Company description"
+  },
+  "공개 문의 방법": {
+    "zh": "公开联系方式",
+    "en": "Public contact details"
+  },
+  "브랜드 로고": {
+    "zh": "品牌标志",
+    "en": "Brand logo"
+  },
+  "브랜드의 말투": {
+    "zh": "品牌语气",
+    "en": "Brand voice"
+  },
+  "표현 원칙": {
+    "zh": "表达原则",
+    "en": "Style rules"
+  },
+  "사용하지 않을 표현 (쉼표로 구분)": {
+    "zh": "禁用表达（逗号分隔）",
+    "en": "Banned expressions (comma separated)"
+  },
+  "회사 정보 저장": {
+    "zh": "保存公司信息",
+    "en": "Save company information"
+  },
+  "저장된 정보": {
+    "zh": "已保存的信息",
+    "en": "Saved information"
+  },
+  "승인 대기": {
+    "zh": "等待批准",
+    "en": "Awaiting approval"
+  },
+  "승인됨": {
+    "zh": "已批准",
+    "en": "Approved"
+  },
+  "수정 요청": {
+    "zh": "请求修改",
+    "en": "Changes requested"
+  },
+  "승인 요청": {
+    "zh": "请求批准",
+    "en": "Request approval"
+  },
+  "승인": {
+    "zh": "批准",
+    "en": "Approve"
+  },
+  "회수": {
+    "zh": "撤回",
+    "en": "Withdraw"
+  },
+  "편집으로 승인 초기화": {
+    "zh": "编辑后批准状态已重置",
+    "en": "Approval reset by editing"
+  },
+  "요청 실패": {
+    "zh": "请求失败",
+    "en": "Request failed"
+  },
+  "검토 상태를 저장했습니다.": {
+    "zh": "检查状态已保存。",
+    "en": "Review status saved."
+  },
+  "공개 게시와 별개": {
+    "zh": "不等于公开发布",
+    "en": "Separate from publication"
+  },
+  "저장된 현재 버전을 검토합니다. 소유자가 승인하며, 승인 후 편집하면 새 초안으로 돌아갑니다. 이전 승인 기록은 보존됩니다.": {
+    "zh": "检查当前已保存版本。所有者批准后，再次编辑会返回新草稿；之前的批准记录保留。",
+    "en": "Review the saved version. The owner approves it; editing starts a new draft and retains prior approval records."
+  },
+  "원천 정보가 바뀌었습니다. 새 정보로 재생성한 뒤 승인하세요.": {
+    "zh": "来源信息已更改，请重新生成后批准。",
+    "en": "Source information changed. Regenerate before approval."
+  },
+  "검토 메모": {
+    "zh": "检查备注",
+    "en": "Review note"
+  },
+  "이 버전 승인": {
+    "zh": "批准此版本",
+    "en": "Approve this version"
+  },
+  "승인·요청 회수": {
+    "zh": "撤回批准或请求",
+    "en": "Withdraw approval or request"
+  },
+  "검토 이력": {
+    "zh": "检查记录",
+    "en": "Review history"
+  },
+  "아직 검토 이력이 없습니다.": {
+    "zh": "还没有检查记录。",
+    "en": "No review history yet."
+  },
+  "메모 없음": {
+    "zh": "无备注",
+    "en": "No note"
+  },
+  "선택한 버전을 별도 초안으로 복제했습니다.": {
+    "zh": "所选版本已复制为独立草稿。",
+    "en": "Selected version copied into a separate draft."
+  },
+  "별도 초안으로 재사용": {
+    "zh": "复用为独立草稿",
+    "en": "Reuse as separate draft"
+  },
+  "미디어 제작물을 저장했습니다.": {
+    "zh": "媒体文件已保存。",
+    "en": "Media files saved."
+  },
+  "저장된 버전": {
+    "zh": "已保存版本",
+    "en": "Saved version"
+  },
+  "에서 문구를 발췌합니다. 미디어는 별도 검토가 필요한 초안이며 DRAFT 표시가 들어갑니다. 생성형 이미지·음성·외부 게시 기능은 사용하지 않습니다.": {
+    "zh": "的原文片段。媒体是需另行检查的草稿，并带 DRAFT 标记。不使用生成式图像、语音或外部发布。",
+    "en": "is the source for these excerpts. Media is a draft requiring separate review, with a DRAFT label. No generative images, voice or external publishing is used."
+  },
+  "보유 사진": {
+    "zh": "已有照片",
+    "en": "Owned photo"
+  },
+  "사용권 메모가 있는 사진 선택": {
+    "zh": "选择有使用权备注的照片",
+    "en": "Select a photo with a rights note"
+  },
+  "자산 메뉴에서 직접 보유한 사진과 사용권·출처 메모를 먼저 등록하세요.": {
+    "zh": "请先在素材菜单上传自有照片并填写使用权与来源备注。",
+    "en": "First upload your photo and add a rights and source note in Assets."
+  },
+  "내보내기 형식": {
+    "zh": "导出形式",
+    "en": "Export format"
+  },
+  "정사각·세로 PNG 카드": {
+    "zh": "正方形与竖版 PNG 卡片",
+    "en": "Square & portrait PNG cards"
+  },
+  "PNG 카드 + 9초 무음 MP4 + SRT": {
+    "zh": "PNG 卡片 + 9秒无声 MP4 + SRT",
+    "en": "PNG cards + 9-second silent MP4 + SRT"
+  },
+  "제목 / 장면 1": {
+    "zh": "标题 / 场景 1",
+    "en": "Title / Scene 1"
+  },
+  "설명 / 장면 2": {
+    "zh": "说明 / 场景 2",
+    "en": "Description / Scene 2"
+  },
+  "다음 행동 / 장면 3": {
+    "zh": "下一步行动 / 场景 3",
+    "en": "Next action / Scene 3"
+  },
+  "저장된 제목·본문의 구절을 그대로 선택하세요. 최대 160자.": {
+    "zh": "原样选择已保存标题或正文的片段，最多160字。",
+    "en": "Use an exact excerpt from the saved title or body, up to 160 characters."
+  },
+  "제작 중… (영상은 최대 2분)": {
+    "zh": "制作中…（视频最多2分钟）",
+    "en": "Rendering… (video can take 2 minutes)"
+  },
+  "미디어 제작·저장": {
+    "zh": "制作并保存媒体",
+    "en": "Create & save media"
+  },
+  "이 콘텐츠의 제작 이력": {
+    "zh": "此内容的制作记录",
+    "en": "Media history for this content"
+  },
+  "제작 완료": {
+    "zh": "制作完成",
+    "en": "Completed"
+  },
+  "실패": {
+    "zh": "失败",
+    "en": "Failed"
+  },
+  "처리 중": {
+    "zh": "处理中",
+    "en": "Processing"
+  },
+  "실패한 작업은 새 요청으로 다시 제작할 수 있습니다.": {
+    "zh": "失败的任务可发起新请求重试。",
+    "en": "Failed jobs can be retried with a new request."
+  },
+  "제품 소개 페이지": {
+    "zh": "产品介绍页",
+    "en": "Product page"
+  },
+  "SNS 게시글": {
+    "zh": "社交媒体帖子",
+    "en": "Social post"
+  },
+  "영업 이메일": {
+    "zh": "销售邮件",
+    "en": "Sales email"
+  },
+  "광고 문안": {
+    "zh": "广告文案",
+    "en": "Ad copy"
+  },
+  "제안서": {
+    "zh": "提案",
+    "en": "Proposal"
+  },
+  "영상 대본": {
+    "zh": "视频脚本",
+    "en": "Video script"
+  },
+  "일반": {
+    "zh": "通用",
+    "en": "General"
+  },
+  "UI 언어": {
+    "zh": "界面语言",
+    "en": "UI language"
+  },
+  "모든 채널": {
+    "zh": "所有渠道",
+    "en": "All channels"
+  }
+}

@@ -1,0 +1,12 @@
+import {z} from 'zod';
+const text=z.string().trim().max(4000).default('');
+const short=z.string().trim().max(200).default('');
+export const companySchema=z.object({name:z.string().trim().min(1).max(160),category:short,description:text,site:short,contact:short,brand:z.object({tone:short,style_rules:text,banned_terms:text,logo_asset_id:short}).default({})});
+export const audienceSchema=z.object({name:z.string().trim().min(1).max(160),situation:text,job:text,alternative:text,problem:text,cost:text,outcome:text,status:z.enum(['suggested','approved']).default('approved')});
+const proof=z.object({id:z.string().max(100),statement:text,source:text,asset_id:short,status:z.enum(['unverified','verified']).default('unverified'),verified_at:short});
+export const offeringSchema=z.object({name:z.string().trim().min(1).max(180),kind:z.enum(['product','service']),category:short,summary:z.string().trim().min(1).max(4000),audience_id:z.string().min(1).max(100),how:text,features:text,benefits:text,difference:text,trust:text,cta:z.string().trim().min(1).max(500),price:short,currency:z.enum(['KRW','CNY','USD']),conditions:text,valid_from:short,valid_to:short,price_source:short,proofs:z.array(proof).max(30).default([]),asset_ids:z.array(z.string().max(100)).max(30).default([]),translations:z.record(z.enum(['zh','en']),z.record(z.string().max(4000))).default({})});
+export const generationSchema=z.object({offering_id:z.string().min(1).max(100),audience_id:z.string().min(1).max(100),objective:z.enum(['인지','이해','문의','구매 지원']),format:z.enum(['page','social','email','ad','proposal','video_script']),channel:z.enum(['general','website','instagram','wechat','linkedin','email']).default('general'),language:z.enum(['ko','zh','en']),tone:z.enum(['professional','friendly','concise']),length:z.enum(['short','standard','long']),cta:z.string().trim().max(500),source_revision:z.number().int().positive(),requested_claim:z.string().trim().max(1000).default('')});
+export type Offering=z.infer<typeof offeringSchema>;
+export type Audience=z.infer<typeof audienceSchema>;
+export type Settings=z.infer<typeof generationSchema>;
+export const formatLabels={page:'제품 소개 페이지',social:'SNS 게시글',email:'영업 이메일',ad:'광고 문안',proposal:'제안서',video_script:'영상 대본'};

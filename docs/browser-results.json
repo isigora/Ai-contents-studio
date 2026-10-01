@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-29T10:53:13.105214+00:00",
+  "actualBrowser": "Login-screen Korean to English UI selection passed; no credentials entered",
+  "staticComponents": {
+    "reviewDesktop": "PASS",
+    "review320": {
+      "clientWidth": 320,
+      "scrollWidth": 320
+    },
+    "review390": {
+      "clientWidth": 390,
+      "scrollWidth": 390
+    }
+  },
+  "notTested": [
+    "Actual iPhone",
+    "Authenticated browser end-to-end"
+  ]
+}
