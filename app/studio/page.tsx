@@ -24,8 +24,17 @@ type Item = {
 const nav = [['overview', '개요', LayoutDashboard], ['company', '내 비즈니스', Building2], ['offerings', '제품·서비스', Package], ['audiences', '고객·가치', Users], ['assets', '자산', FolderOpen], ['create', '콘텐츠 스튜디오', Sparkles], ['contents', '콘텐츠 보관함', Library], ['settings', '설정', Settings]] as const;
 const emptyOffering = { name: '', kind: 'product', category: '', summary: '', audience_id: '', how: '', features: '', benefits: '', difference: '', trust: '', cta: '', price: '', currency: 'KRW', conditions: '', valid_from: '', valid_to: '', price_source: '', proofs: [], asset_ids: [], translations: {} };
 const emptyAudience = { name: '', situation: '', job: '', alternative: '', problem: '', cost: '', outcome: '', status: 'approved' };
-async function api(url: string, method = 'GET', body?: unknown, key?: string) { const r = await fetch('/api/' + url, { method, credentials: 'include', headers: body instanceof FormData ? {} : { 'Content-Type': 'application/json', ...(key ? { 'Idempotency-Key': key } : {}) }, body: body === undefined ? undefined : body instanceof FormData ? body : JSON.stringify(body) }); const data: any = await r.json(); if (!r.ok)
-    throw new Error(data.error?.message || data.message || '요청에 실패했습니다.'); return data; }
+class ApiError extends Error {
+    constructor(message: string, public status = 0) { super(message); }
+}
+async function api(url: string, method = 'GET', body?: unknown, key?: string) {
+    const r = await fetch('/api/' + url, { method, credentials: 'include', headers: body instanceof FormData ? {} : { 'Content-Type': 'application/json', ...(key ? { 'Idempotency-Key': key } : {}) }, body: body === undefined ? undefined : body instanceof FormData ? body : JSON.stringify(body) });
+    let data: any;
+    try { data = await r.json(); }
+    catch { throw new ApiError('서버 응답을 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.', r.status); }
+    if (!r.ok) throw new ApiError(data.error?.message || data.message || '요청에 실패했습니다.', r.status);
+    return data;
+}
 function Pick({ label, value, onChange, options }: {
     label: string;
     value: string;
@@ -68,15 +77,17 @@ function Studio() {
     } | null>(null), [detail, setDetail] = useState<any>(null), [contentTitle, setContentTitle] = useState(''), [contentBody, setContentBody] = useState(''), [contentStatus, setContentStatus] = useState('draft'), [viewVersion, setViewVersion] = useState(''), [filter, setFilter] = useState('all'), [filterLanguage, setFilterLanguage] = useState('all'), [filterStatus, setFilterStatus] = useState('all'), [filterGoal, setFilterGoal] = useState('all'), [filterChannel,setFilterChannel]=useState('all');
     const [create, setCreate] = useState({ offering_id: '', audience_id: '', objective: '인지', format: 'page', channel: 'general', language: 'ko', tone: 'professional', length: 'standard', cta: '', requested_claim: '' });
     const [authMode, setAuthMode] = useState('signin'), [authName, setAuthName] = useState(''), [email, setEmail] = useState(''), [password, setPassword] = useState(''), [authError, setAuthError] = useState(''), [saveState, setSaveState] = useState(''), [rights, setRights] = useState('');
-    const refreshSession = useCallback(async () => { try {
+    const [sessionError, setSessionError] = useState('');
+    const refreshSession = useCallback(async () => { setSessionError(''); try {
         const data = await api('me');
         setUser(data.user);
         setWorkspaces(data.workspaces);
         setMode(data.mode);
         setWid(current => data.workspaces.some((w: any) => w.id === current) ? current : data.workspaces[0]?.id || '');
     }
-    catch {
-        setUser(null);
+    catch (error) {
+        if (error instanceof ApiError && error.status === 401) setUser(null);
+        else setSessionError('작업공간에 연결하지 못했습니다. 서버 상태를 확인한 뒤 다시 시도해 주세요.');
     }
     finally {
         setInitial(false);
@@ -117,7 +128,7 @@ function Studio() {
     const go = (p: string) => { if (edit && saveState === '수정 중' && !confirm('저장하지 않은 변경을 닫을까요?'))
         return; setPage(p); setEdit(null); setDetail(null); setSearch(''); setSaveState(''); };
     const setData = (key: string, value: any) => { setEdit(e => e ? { ...e, data: { ...e.data, [key]: value } } : e); setSaveState('수정 중'); };
-    const canEdit = ws?.role !== 'viewer';
+    const canEdit = ws?.role === 'owner' || ws?.role === 'editor';
     const newItem = (kind: string, item?: Item) => { setEdit({ kind, id: item?.id, revision: item?.revision || 1, data: structuredClone(item?.data || (kind === 'audiences' ? emptyAudience : emptyOffering)) }); setSaveState(''); };
     const openContent = async (id: string) => { const c = await api(`workspaces/${wid}/contents/${id}`); setDetail(c); setContentTitle(c.latest.title); setContentBody(c.latest.body); setContentStatus(c.status); setViewVersion(String(c.current_version)); setSaveState(''); };
     const saveEntity = () => run(async () => { if (!edit)
@@ -134,21 +145,20 @@ function Studio() {
         return; const lifecycle = new AbortController(); const register = async () => { await ctx.registerTool({ name: 'list_studio_offerings', description: '현재 로그인한 작업공간의 제품 목록을 읽습니다.', inputSchema: { type: 'object', properties: {}, additionalProperties: false }, annotations: { readOnlyHint: true, untrustedContentHint: true }, execute: async (input: unknown) => { if (!input || typeof input !== 'object' || Object.keys(input).length)
             throw new Error('Expected an empty object'); const items = await api(`workspaces/${wid}/offerings`); return { items: items.map((i: any) => ({ id: i.id, name: i.data.name, revision: i.revision })) }; } }, { signal: lifecycle.signal }); }; void register().catch(() => { }); return () => lifecycle.abort(); }, [wid, user]);
     const authSubmit = async (e: FormEvent) => { e.preventDefault(); setBusy(true); setAuthError(''); try {
-        const r = await fetch('/api/auth/' + (authMode === 'signup' ? 'sign-up/email' : 'sign-in/email'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, ...(authMode === 'signup' ? { name: authName } : {}) }) });
-        const data: any = await r.json();
-        if (!r.ok)
-            throw new Error(data.message || '이메일과 비밀번호를 확인해 주세요.');
+        await api('auth/' + (authMode === 'signup' ? 'sign-up/email' : 'sign-in/email'), 'POST', { email, password, ...(authMode === 'signup' ? { name: authName } : {}) });
         setPassword('');
         await refreshSession();
     }
     catch (e) {
-        setAuthError((e as Error).message);
+        setAuthError(t((e as Error).message));
     }
     finally {
         setBusy(false);
     } };
     if (initial)
         return <div className="auth-shell"><Skeleton className="h-80 w-96"/></div>;
+    if (sessionError)
+        return <div className="auth-shell"><div className="auth-card"><h1><UiText>연결을 확인해 주세요</UiText></h1><p role="alert"><UiText>{sessionError}</UiText></p><button className="button primary full" onClick={() => { setInitial(true); void refreshSession(); }}><UiText>다시 연결</UiText></button></div></div>;
     if (!user)
         return <><Toaster /><div className="auth-shell"><Link href="/" className="wordmark auth-logo"><Layers3 />CONTENT STUDIO</Link><div className="auth-card"><UiLanguagePicker/><span className="eyebrow">YOUR BUSINESS WORKSPACE</span><h1><UiText>{authMode === 'signup' ? '첫 이야기를 시작하세요.' : '다시 만나 반가워요.'}</UiText></h1><p className="muted"><UiText>{"회사 정보와 콘텐츠를 이어서 관리하세요."}</UiText></p><Tabs value={authMode} onValueChange={v => { setAuthMode(v); setAuthError(''); }}><TabsList className="auth-tabs"><TabsTrigger value="signin"><UiText>{"로그인"}</UiText></TabsTrigger><TabsTrigger value="signup"><UiText>{"계정 만들기"}</UiText></TabsTrigger></TabsList></Tabs><form onSubmit={authSubmit}><UiText>{authMode === 'signup' && <Field label="이름" value={authName} onChange={setAuthName} required/>}</UiText><Field label="이메일" value={email} onChange={setEmail} type="email" required/><Field label="비밀번호" value={password} onChange={setPassword} type="password" required hint="10자 이상 입력해 주세요."/><UiText>{authError && <div className="notice error" role="alert"><UiText>{authError}</UiText></div>}</UiText><button className="button primary full" disabled={busy}><UiText>{busy ? <Loader2 className="spin" size={18}/> : authMode === 'signup' ? '계정 만들기' : '로그인'}</UiText> <ArrowRight size={17}/></button></form><p className="auth-note"><UiText>{"이 검토용 버전에서는 이메일 인증과 비밀번호 재설정 메일을 발송하지 않습니다."}</UiText></p></div><Link href="/" className="muted"><UiText>{"← 소개 페이지"}</UiText></Link></div></>;
     const visibleOfferings = offerings.filter(o => !o.archived && o.data.name.includes(search));

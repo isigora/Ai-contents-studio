@@ -15,7 +15,8 @@
     "setup:local": "node scripts/setup-local.mjs",
     "db:migrate": "node --env-file=.env.local scripts/migrate.mjs",
     "backup:local": "node --env-file=.env.local scripts/backup-local.mjs",
-    "restore:local": "node scripts/restore-local.mjs"
+    "restore:local": "node scripts/restore-local.mjs",
+    "test:readiness": "node tests/readiness.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1136.0",

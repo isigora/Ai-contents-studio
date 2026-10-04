@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-01T09:01:16.339Z",
+  "date": "2026-10-04T09:50:40.287Z",
   "tests": [
     "P0 schema → P1 additive migration twice preserves data",
     "Backup and restore DB plus object files",

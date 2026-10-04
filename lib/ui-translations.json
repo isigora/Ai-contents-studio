@@ -1338,5 +1338,21 @@
   "모든 채널": {
     "zh": "所有渠道",
     "en": "All channels"
+  },
+  "연결을 확인해 주세요": {
+    "zh": "请检查连接",
+    "en": "Check your connection"
+  },
+  "다시 연결": {
+    "zh": "重新连接",
+    "en": "Reconnect"
+  },
+  "작업공간에 연결하지 못했습니다. 서버 상태를 확인한 뒤 다시 시도해 주세요.": {
+    "zh": "无法连接到工作空间。请检查服务器状态后重试。",
+    "en": "Unable to connect to the workspace. Check the server and try again."
+  },
+  "서버 응답을 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.": {
+    "zh": "无法读取服务器响应，请稍后重试。",
+    "en": "Unable to read the server response. Please try again shortly."
   }
 }

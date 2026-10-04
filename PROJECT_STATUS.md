@@ -1,6 +1,6 @@
 # AI Content Studio — Project Status
 
-Last updated: 2026-10-01T09:03:49.707951+00:00.
+Last updated: 2026-10-04T09:55:35.786044+00:00.
 Repository: isigora/Ai-contents-studio. Branch: main.
 Current phase: P0/P1 review build recovery and Codespaces verification.
 Runnable package version: 0.2.0 (P0 + P1), extracted into the repository; original ZIP retained.
@@ -57,12 +57,12 @@ Online execution is unverified. Earlier postStart returned success but the port 
 Work scratch was pruned; recovered code from GitHub, not from conversation claims.
 
 ## Resume queue
-1. Inspect existing Codespace worktree and logs without printing secrets.
-2. Commit extracted source files to main, preserving original ZIP as recovery artifact and original specification.
-3. Diagnose/start port 4173; keep forwarded port Private.
-4. Run tests/typecheck/build in Codespaces; record actual results with tested source commit.
-5. Verify website and /studio; then authenticated browser/mobile and media flows.
-6. Update status → commit → push after each stable unit.
+1. Read docs/RESUME.md for the last verified checkpoint and current blocker.
+2. Inspect existing Codespace branch/HEAD/worktree before pulling; preserve its data and secrets.
+3. Verify forwarded /studio response and actual browser signup/login → edit → generate → copy (mobile included).
+4. Verify P1 browser approval, media and reuse; retain PARTIAL status until these pass.
+5. Select operating domain, mail provider, production DB/storage and AI access before activation.
+6. P2/P3 only after existing release gates and explicit channel/cost decisions.
 
 ## Operating rules
 Implementation → run → test → fix → retest → update status → commit → push → verify remote SHA.
@@ -100,3 +100,25 @@ Browser /studio logged-out rendering PASS; authenticated browser/workspace journ
 PENDING secure user credential entry. No claim of full P0/P1 completion or mobile testing.
 Original reported signup failure is not conclusively reproduced; current API signup works.
 Next: secure browser login, verify workspace UI, update this checkpoint with actual results.
+
+## Checkpoint 004 — connection recovery and repeatable startup (2026-10-04 UTC)
+Baseline source: 3d7a5449c564ca2d01b99a1d1733083866ade80a; clean main clone.
+Environment: isolated Work checkout, Node 24.19.0, pnpm 11.25.0; NOT the running Codespace.
+Implemented: session 401 is distinguished from service/network failure; failed connection
+shows a retry screen, not a misleading login form. Non-JSON authentication responses have
+a readable error. Editing defaults to denied until owner/editor membership is loaded.
+New recovery labels are translated into Korean/Chinese/English.
+Startup now checks /studio HTML (rejecting empty/download responses) AND anonymous
+Better Auth JSON. flock serializes starts; an occupied unhealthy port is reported instead
+of spawning a second process against PGlite. Next agentRules auto-generation is disabled
+so the project's own agent instructions stay stable. Resume guidance uses focused reads.
+Fresh checks: 26 acceptance + 4 persistence + 3 language renders PASS; typecheck PASS;
+production build PASS; 4 readiness positive/negative cases PASS; actual cold start and
+already-running startup PASS. See docs/startup-results.json and docs/*-results.json.
+No remote Codespace changes, live-user data operations, email sending or paid AI calls.
+Browser gate BLOCKED: no installed Chromium; `pnpm exec playwright install chromium`
+returned a corrupt/empty ZIP (End of central directory record signature not found).
+An experimental browser runner was not retained because it could not be validated.
+Actual iPhone, authenticated browser flow, and the user's 0KB forwarded response remain
+unverified. This is not evidence that the original remote 0KB issue is fixed.
+P0/P1 remain PARTIAL; P2/P3 NOT STARTED. No production-complete claim.

@@ -1,0 +1,5 @@
+{
+  "date": "2026-10-04T09:54:33.915Z",
+  "status": "PASS",
+  "scope": "Fresh local checkout, actual Next dev process; cold start, HTML/auth readiness, repeat startup. Not the remote Codespace."
+}
