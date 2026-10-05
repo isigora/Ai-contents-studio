@@ -1,6 +1,6 @@
 # AI Content Studio — Project Status
 
-Last updated: 2026-10-04T09:55:35.786044+00:00.
+Last updated: 2026-10-05 UTC.
 Repository: isigora/Ai-contents-studio. Branch: main.
 Current phase: P0/P1 review build recovery and Codespaces verification.
 Runnable package version: 0.2.0 (P0 + P1), extracted into the repository; original ZIP retained.
@@ -122,3 +122,22 @@ An experimental browser runner was not retained because it could not be validate
 Actual iPhone, authenticated browser flow, and the user's 0KB forwarded response remain
 unverified. This is not evidence that the original remote 0KB issue is fixed.
 P0/P1 remain PARTIAL; P2/P3 NOT STARTED. No production-complete claim.
+
+## Checkpoint 005 — delivery completion and focused connection diagnosis (2026-10-05 UTC)
+Found checkpoint 004 had not moved remote main; completed the non-force update and
+verified GitHub main at be397e4ec10e82a93a6f2ea6b523d6e92d9cb0ef, tree
+dabb8cd741c275fe7d850b643c36c88494dafaf6 (identical to the tested local source).
+Added `pnpm check:codespaces`, a read-only loopback/configuration diagnostic. Reports
+empty/download responses, redirects, HTTP errors, incorrect content, invalid auth JSON,
+connection failures and configuration mismatches without response bodies or secrets.
+Does not open the DB, alter data, restart services or access the forwarded public URL.
+Fresh local verification (Node 24.19.0): 11 diagnostic cases and 4 readiness cases PASS.
+Actual diagnostic run correctly reported no local running service and a non-Codespaces
+environment. This is NOT a diagnosis of the user's current Codespace.
+Remote execution BLOCKED: automatic approval review rejected opening the Codespace
+through the browser because it would retry an already blocked remote path and could
+constitute a bypass. Do not route around that rejection. User approval is needed before
+attempting that access again. No live Codespace or user DB changes in this checkpoint.
+Next gate remains actual private Codespace browser login/workspace and mobile verification.
+P0/P1 remain PARTIAL, P2/P3 NOT STARTED. Prior build/acceptance results are historical;
+this checkpoint changes diagnostic tooling/documentation, not the application runtime.

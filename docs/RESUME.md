@@ -1,11 +1,17 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
-- Last work: connection retry UI and stricter serialized Codespaces startup (checkpoint 004).
+- Last work: checkpoint 004 pushed and remote verified; read-only local diagnosis added (005).
 - Tested locally: 26 acceptance, 4 persistence, 3 locales, typecheck, build, 4 readiness cases,
   actual Next cold start and repeat startup. Remote Codespace and physical iPhone NOT tested.
 - BLOCKER: authenticated browser journey still unverified. Local Chromium absent; official
   Playwright browser download returned corrupt/empty ZIP. Do not repeat this install loop.
+- Remote Codespace UI access was rejected by automatic approval review on 2026-10-05:
+  retrying a previously blocked remote browser path may bypass a restriction. Do not
+  retry via another browser, CLI tunnel or indirect execution to evade that rejection.
+  User approval of the blocked access must be obtained before another attempt.
+- `pnpm check:codespaces` is a read-only diagnostic for the existing Codespace terminal;
+  local success cannot certify forwarding, browser login, or the phone.
 - Next: inspect live Codespace before pulling; verify real forwarded /studio and login,
   company/product editing, generation, save/version/copy, approval, media/reuse at mobile width.
 - Tests: pnpm test; pnpm test:readiness; pnpm typecheck; pnpm build.

@@ -1,5 +1,21 @@
 # Codespaces review login
 
+## When the browser downloads an empty studio file
+
+From the project root in the Codespaces terminal, run `pnpm check:codespaces`.
+This read-only command checks local Studio HTML, anonymous authentication and
+configuration matches. It never opens the database, changes files, prints secrets,
+prints response bodies, or requests the external forwarded URL.
+`empty-response` / `download-response` identify invalid local page responses;
+`http-error` / `connection-failed-or-timeout` identify service failures.
+A local `ready: true` does NOT prove forwarding or browser login works. If it is
+ready but the phone still downloads a file, the remaining investigation is the
+private forwarded connection and signed-in browser, not another database reset.
+Keep port 4173 private. Use the Ports panel's Open in Browser action. Do not share
+raw environment files, credential files or server logs.
+
+## Development account
+
 This helper is only for the existing private Codespaces local development database.
 It refuses non-Codespaces, non-local mode, production NODE_ENV, external DATABASE_URL,
 and an APP_URL that does not match this Codespace's forwarded port 4173.
