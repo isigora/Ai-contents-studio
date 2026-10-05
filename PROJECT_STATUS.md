@@ -21,9 +21,9 @@ Source ZIP SHA-256: 3148d9b70527be668409c8a931edd9685adad9d5c88f4b2922dde094f599
 ## Status by phase
 | Phase | Goal | Status |
 |---|---|---|
-| P0 | Multi-workspace business knowledge and text content MVP | Partial: implemented, acceptance tests pass; authenticated browser/mobile journey remains |
+| P0 | Multi-workspace business knowledge and text content MVP | Partial: user reports Codespace login success; quick factual entry implemented; full authenticated creation/mobile journey remains |
 | P1 | Approval, templates, image/video/subtitle production, reuse, three UI languages | Partial: implemented and server tested; full browser and release gates remain |
-| P2 | Official API publishing, scheduling, metrics, billing | Not started; choose channel and approve access/cost before integration |
+| P2 | Official API publishing, scheduling, metrics, billing | Not started; X selected; account access, cost and release gates remain |
 | P3 | Consented buyer/supplier matching | Not started |
 | P4 | Not defined in the existing specification | Not scheduled; do not invent scope |
 
@@ -44,7 +44,9 @@ Known limitations: synchronous media rendering, no distributed queue; some serve
 Next: verify P1 media in Codespaces after P0 browser path.
 
 ### P2 / P3
-No implementation found. Only roadmap entries exist. No external posting, billing, paid AI or matching has been enabled.
+No implementation found. X was selected by the user on 2026-10-05. Preparation is in
+docs/X_INTEGRATION.md; final product clarifications are in docs/PRODUCT_DIRECTION.md.
+No external posting, billing, paid AI or matching has been enabled.
 Main reference: docs/Master_Development_Specification.md, sections 1 and 7.
 Tests: none. Do not label planned features completed.
 
@@ -159,3 +161,43 @@ Typecheck and production build PASS. This is local evidence, not the user's brow
 Credentials in tests are random and confined to a new temporary DB; user DB untouched.
 Next: user pulls update, restarts the existing Codespace's dev server to clear cached auth,
 and retries review-owner login and Development Review workspace access. P0/P1 remain PARTIAL.
+
+## Checkpoint 007 — user login evidence, quick factual entry and X draft templates
+Date: 2026-10-05 UTC. Baseline remote main: 6584e3ffdf096251218da55e6f7f225c39aa47c9.
+User supplied HTTP=000 after restart; manual start reported readiness and HTTP=200.
+User then explicitly reported the preview opens and login succeeds. This resolves the
+reported login blocker; it is user-observed evidence, not an independently operated browser
+test. Workspace/edit/generate/copy, mobile and P1 browser/media gates are still pending.
+User selected X as the first SNS and authorised continued development. Automatic browser
+review still blocked direct Codespace access after the user's approval; do not route around it.
+
+Implemented an owner/editor quick entry form: keyword/name, actual offering description,
+audience and CTA with fact confirmation. It atomically creates linked audience/offering
+records and revision/audit history, then selects X social/short settings. Price/evidence
+remain blank. This is minimal factual input, NOT automatic AI interpretation of keywords,
+files or photos. Existing detailed editing and media functionality remains available.
+Added additive knowledge_intake table, repeatable request keys, request conflict checks,
+workspace locking and rate limits. A retry cannot create duplicate linked facts. Failed
+insertion rolls back the audience, offering and revisions together. Existing data untouched.
+
+Also fixed the business API's separate origin check, which otherwise still rejected the
+HTTPS-loopback origin despite successful auth. Uses the same exact Codespace guards;
+null/same-origin inference applies only to that guarded local request URL. Foreign origins,
+wrong ports and null/cross-site requests remain blocked, including production inference.
+X is a draft channel template only; no account token, publishing API or scheduler exists.
+Template version becomes channels-v2; historical saved versions/snapshots are not modified.
+
+Fresh isolated Work tests, Node 24.19.0/pnpm 11.25.0: 10 quick-start integration scenarios
+PASS (including concurrent replay, transaction rollback, roles/isolation, generation,
+editing/export and actual component SSR in three languages); auth origin checks PASS;
+26 existing acceptance + 4 persistence + 3 locale renders PASS; 4 readiness + 11 diagnostic
+cases PASS; typecheck and production build PASS. See docs/quick-start-results.json and
+updated docs/*-results.json. These are server/SSR results, not browser click certification.
+Original master specification SHA-256 remains unchanged. No live-user DB, credentials,
+paid AI, X posting or developer-account mutations were performed.
+
+Deployment: pull this checkpoint, restart the same Codespace's Next dev server so additive
+schema runs and cached server modules refresh; use start-codespaces.sh if not auto-started.
+Next browser path: overview → quick entry → X text generation → edit/save → export;
+then approval, photo card, MP4/SRT and reuse. Next external gate: provider/budget selection
+and X OAuth scope/callback/cost approval, after P0/P1 release evidence. P0/P1 remain PARTIAL.

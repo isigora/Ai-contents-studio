@@ -33,7 +33,7 @@ let wp:any,ap:any,op:any,cp:any,photo:any,media:any;
 await test('P1 채널 템플릿·제안서·영상 대본·3개 언어',async()=>{
  wp=await ok(A.cookie,'workspaces','POST',{name:'P1 examples'});ap=await ok(A.cookie,`workspaces/${wp.id}/audiences`,'POST',{data:aa.data});op=await ok(A.cookie,`workspaces/${wp.id}/offerings`,'POST',{data:{...oa.data,audience_id:ap.id}});
  for(const [format,channel,language] of [['proposal','website','ko'],['video_script','instagram','zh'],['social','wechat','zh'],['email','email','en'],['social','linkedin','en']]){
-  const content=await ok(A.cookie,`workspaces/${wp.id}/generations`,'POST',await settings(wp.id,A.cookie,op,ap,{format,channel,language}),randomUUID());assert(content.latest.body.length>20);assert.equal(content.settings.channel,channel);assert.equal(content.latest.annotations.template_version,'channels-v1');assert(content.latest.body.includes(language==='zh'?'公园球':language==='en'?'Parkball':'공원구'));cp=content;
+  const content=await ok(A.cookie,`workspaces/${wp.id}/generations`,'POST',await settings(wp.id,A.cookie,op,ap,{format,channel,language}),randomUUID());assert(content.latest.body.length>20);assert.equal(content.settings.channel,channel);assert.equal(content.latest.annotations.template_version,'channels-v2');assert(content.latest.body.includes(language==='zh'?'公园球':language==='en'?'Parkball':'공원구'));cp=content;
  }
  assert.equal((await call(A.cookie,`workspaces/${wp.id}/generations`,'POST',await settings(wp.id,A.cookie,op,ap,{format:'page',channel:'instagram'}),randomUUID())).status,400);
  const catalog=await ok(A.cookie,`workspaces/${wp.id}/templates`);assert(catalog.channels.wechat);

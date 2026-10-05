@@ -18,6 +18,15 @@ CREATE INDEX IF NOT EXISTS offering_workspace_idx ON offering(workspace_id);
 CREATE INDEX IF NOT EXISTS content_workspace_idx ON content(workspace_id,updated_at);
 CREATE INDEX IF NOT EXISTS generation_rate_idx ON generation_run(workspace_id,created_at);
 
+-- Additive P0 intake: one transaction, repeatable retries, no existing row replacement.
+CREATE TABLE IF NOT EXISTS knowledge_intake(
+ workspace_id text NOT NULL REFERENCES workspace(id),user_id text NOT NULL REFERENCES auth_user(id),
+ request_key text NOT NULL,request_hash text NOT NULL,offering_id text NOT NULL,audience_id text NOT NULL,
+ created_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(workspace_id,user_id,request_key),
+ FOREIGN KEY(workspace_id,offering_id) REFERENCES offering(workspace_id,id),
+ FOREIGN KEY(workspace_id,audience_id) REFERENCES audience(workspace_id,id));
+CREATE INDEX IF NOT EXISTS intake_rate_idx ON knowledge_intake(workspace_id,created_at);
+
 -- P1 is additive: legacy reviewed means personal review, never external approval.
 CREATE TABLE IF NOT EXISTS content_workflow(
  workspace_id text NOT NULL, content_id text NOT NULL, version integer NOT NULL,

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-05T12:49:10.292Z",
+  "baseline": "6584e3ffdf096251218da55e6f7f225c39aa47c9",
+  "environment": "isolated Work PGlite, random disposable users",
+  "tests": [
+    {
+      "name": "Confirmed minimum inputs save linked audience and offering through proxy origin",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-key retries and concurrent retries create no duplicate facts or revisions",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed input with a reused request key is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Incomplete, unconfirmed, oversized and unkeyed requests leave existing data intact",
+      "status": "PASS"
+    },
+    {
+      "name": "Atomic rollback leaves no orphan audience or revision after offering insert fails",
+      "status": "PASS"
+    },
+    {
+      "name": "Anonymous, foreign-workspace and viewer writes are denied",
+      "status": "PASS"
+    },
+    {
+      "name": "Foreign origin, wrong port and null cross-site mutations remain denied",
+      "status": "PASS"
+    },
+    {
+      "name": "Quick registered facts generate and persist an X text draft without publishing",
+      "status": "PASS"
+    },
+    {
+      "name": "Editing creates a version and export preserves the saved text",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual quick entry form renders in three languages with required fields and confirmation",
+      "status": "PASS"
+    }
+  ],
+  "notRun": [
+    "Actual browser clicks/mobile",
+    "Live X OAuth or posting",
+    "Paid AI calls"
+  ]
+}

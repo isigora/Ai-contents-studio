@@ -2,7 +2,8 @@ import {randomUUID,createHash} from 'node:crypto';
 import {z} from 'zod';
 import {getDb,rows,type Queryable,type Row} from './db';
 import {getAuth} from './auth';
-import {companySchema,audienceSchema,offeringSchema,generationSchema} from '../models';
+import {requestOriginAllowed} from './auth-origins';
+import {companySchema,audienceSchema,offeringSchema,generationSchema,intakeSchema} from '../models';
 import {generate,bodyOf,type Snapshot} from './generator';
 import {inspectFile,putObject,getObject,deleteObject} from './storage';
 import sharp from 'sharp';
@@ -28,7 +29,7 @@ export async function handle(req:Request):Promise<Response>{
  let uid='',wid='';
  try{
   const path=new URL(req.url).pathname.replace(/^\/api\/?/,'').split('/').filter(Boolean),method=req.method;
-  if(method!=='GET'){const allowed=(process.env.TRUSTED_ORIGINS||process.env.APP_URL||'http://localhost:4173').split(',');if(!allowed.includes(req.headers.get('origin')||''))fail(403,'ORIGIN','허용되지 않은 요청입니다.');}
+  if(method!=='GET'&&!requestOriginAllowed(req))fail(403,'ORIGIN','허용되지 않은 요청입니다.');
   const auth=await getAuth(),session=await auth.api.getSession({headers:req.headers});
   if(!session)fail(401,'UNAUTHORIZED','먼저 로그인해 주세요.');uid=session.user.id;
   const db=await getDb();
@@ -41,6 +42,32 @@ export async function handle(req:Request):Promise<Response>{
   wid=path[1];if(!wid)fail(404,'NOT_FOUND','작업공간을 선택해 주세요.');const workspace=await access(uid,wid,method!=='GET');const resource=path[2],id=path[3];
   if(!resource&&method==='GET')return json(workspace);
   const extended=await p1Route({db,uid,wid,workspace,resource,id,path,method,req,parse,access,fullContent,own,audit,fail});if(extended)return extended;
+  if(resource==='intake'&&method==='POST'&&!id){
+   const input=intakeSchema.parse(await parse(req));
+   const key=z.string().min(8).max(100).parse(req.headers.get('idempotency-key'));
+   const hash=createHash('sha256').update(JSON.stringify(input)).digest('hex');
+   const result=await db.transaction(async q=>{
+    await access(uid,wid,true,q);
+    // Serialise same-workspace intake retries before creating either linked entity.
+    await q.query('SELECT id FROM workspace WHERE id=$1 FOR UPDATE',[wid]);
+    const old=(await q.query('SELECT * FROM knowledge_intake WHERE workspace_id=$1 AND user_id=$2 AND request_key=$3',[wid,uid,key])).rows[0];
+    if(old){
+     if(old.request_hash!==hash)fail(409,'KEY_CONFLICT','다른 입력에 같은 요청 키를 사용할 수 없습니다.');
+     return {offering_id:old.offering_id,audience_id:old.audience_id,replayed:true};
+    }
+    const count=(await q.query("SELECT count(*)::int AS n FROM knowledge_intake WHERE workspace_id=$1 AND created_at>now()-interval '1 minute'",[wid])).rows[0].n;
+    if(count>=10)fail(429,'INTAKE_LIMIT','잠시 후 다시 등록해 주세요.');
+    const audienceId=randomUUID(),offeringId=randomUUID();
+    const audience=audienceSchema.parse({name:input.audience,status:'approved'});
+    const offering=offeringSchema.parse({name:input.name,kind:input.kind,summary:input.summary,audience_id:audienceId,cta:input.cta,currency:'KRW'});
+    await q.query('INSERT INTO audience(id,workspace_id,data) VALUES($1,$2,$3)',[audienceId,wid,JSON.stringify(audience)]);
+    await q.query('INSERT INTO offering(id,workspace_id,audience_id,data) VALUES($1,$2,$3,$4)',[offeringId,wid,audienceId,JSON.stringify(offering)]);
+    await revision(q,uid,wid,'audience',audienceId,1,audience);
+    await revision(q,uid,wid,'offering',offeringId,1,offering);
+    await q.query('INSERT INTO knowledge_intake(workspace_id,user_id,request_key,request_hash,offering_id,audience_id) VALUES($1,$2,$3,$4,$5,$6)',[wid,uid,key,hash,offeringId,audienceId]);
+    return {offering_id:offeringId,audience_id:audienceId,replayed:false};
+   });return json(result,result.replayed?200:201);
+  }
   if(resource==='company'){
    if(method==='GET')return json((await rows('SELECT * FROM company WHERE workspace_id=$1',[wid]))[0]);
    if(method==='PUT'){const p=await parse(req),data=companySchema.parse(p.data),rev=z.number().int().positive().parse(p.revision);return json(await db.transaction(async q=>{await access(uid,wid,true,q);if(data.brand.logo_asset_id){const logo=await own(q,'asset',wid,data.brand.logo_asset_id);if(logo.status!=='ready'||!logo.mime.startsWith('image/'))fail(400,'LOGO_ASSET','사용 가능한 이미지 자산을 선택해 주세요.');}const r=(await q.query('UPDATE company SET data=$1,revision=revision+1,updated_at=now() WHERE workspace_id=$2 AND revision=$3 RETURNING *',[JSON.stringify(data),wid,rev])).rows[0];if(!r)fail(409,'REVISION_CONFLICT','다른 창에서 정보가 바뀌었습니다. 새로 불러온 뒤 다시 저장해 주세요.');await revision(q,uid,wid,'company',wid,r.revision,data);return r}));}

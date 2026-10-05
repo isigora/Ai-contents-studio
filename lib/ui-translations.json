@@ -1351,6 +1351,14 @@
     "zh": "无法连接到工作空间。请检查服务器状态后重试。",
     "en": "Unable to connect to the workspace. Check the server and try again."
   },
+  "간편 등록으로 시작하기": {"zh":"快速登记，立即开始","en":"Start with quick registration"},
+  "제품 키워드와 실제 제공 내용, 고객, 다음 행동만 입력하세요. 나머지 정보는 나중에 보완할 수 있습니다.": {"zh":"只需输入产品关键词、实际提供内容、目标客户和下一步行动，其他资料可稍后补充。","en":"Enter a product keyword, what you actually offer, your audience and the next action. Add other details later."},
+  "제품·서비스 키워드": {"zh":"产品或服务关键词","en":"Product or service keyword"},
+  "실제 제공 내용 · 자료 붙여넣기": {"zh":"实际提供内容 · 粘贴资料","en":"What you offer · paste your notes"},
+  "입력한 내용을 사실로 확인했습니다.": {"zh":"我已确认输入内容属实。","en":"I confirm that the information entered is factual."},
+  "입력한 사실만 저장합니다. 등록 후 X 초안 설정으로 이동하며 자동 게시하지 않습니다.": {"zh":"仅保存您输入的事实。登记后进入 X 草稿设置，不会自动发布。","en":"Only your facts are saved. Registration opens X draft settings and does not publish automatically."},
+  "등록하고 X 초안 만들기": {"zh":"登记并创建 X 草稿","en":"Register and create an X draft"},
+  "등록하지 못했습니다. 입력은 유지됩니다.": {"zh":"登记失败，已保留输入内容。","en":"Registration failed. Your input is preserved."},
   "서버 응답을 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.": {
     "zh": "无法读取服务器响应，请稍后重试。",
     "en": "Unable to read the server response. Please try again shortly."

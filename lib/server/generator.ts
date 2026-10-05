@@ -45,6 +45,7 @@ export function fallback(snapshot:Snapshot,settings:Settings):Generated{
  const banned=f.brand.banned_terms?.split(/[,，\n]/).map((t:string)=>t.trim()).filter(Boolean)||[];
  selected=selected.filter(s=>{const term=banned.find((t:string)=>s.body.includes(t));if(term){unsupported.push('브랜드 금지 표현 포함: '+term);return false}return true});
  if(settings.channel==='instagram')selected=selected.filter(s=>s.heading!==l.how&&s.heading!==l.trust).slice(0,4);
+ if(settings.channel==='x'&&settings.format!=='video_script')selected=selected.filter(s=>s.heading!==l.how&&s.heading!==l.trust).slice(0,2);
  missing.push(channelAdvice(settings.channel||'general',settings.language));
  const headline=settings.tone==='friendly'?({ko:'함께 알아보는 ',zh:'一起了解：',en:'Discover: '}[settings.language])+f.name:f.name;
  const blocked=(text:string)=>banned.some((term:string)=>text.includes(term));

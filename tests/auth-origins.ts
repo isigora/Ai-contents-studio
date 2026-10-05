@@ -3,7 +3,7 @@ import {randomBytes} from 'node:crypto';
 import {mkdtemp} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import {authOrigins} from '../lib/server/auth-origins';
+import {authOrigins,requestOriginAllowed} from '../lib/server/auth-origins';
 const publicOrigin = 'https://origin-test-4173.app.github.dev';
 const env:NodeJS.ProcessEnv = {CODESPACES:'true',CODESPACE_NAME:'origin-test',APP_MODE:'local',NODE_ENV:'development',APP_URL:publicOrigin,TRUSTED_ORIGINS:publicOrigin+',http://localhost:4173'};
 const alias = 'https://localhost:4173';
@@ -12,6 +12,9 @@ for (const override of [{CODESPACES:'false'},{APP_MODE:'production'},{NODE_ENV:'
   assert(!authOrigins({...env,...override}).includes(alias));
 }
 assert.deepEqual(authOrigins({TRUSTED_ORIGINS:' https://one.invalid, ,https://one.invalid '}),['https://one.invalid']);
+const inferredRequest=new Request(alias+'/api/workspaces',{method:'POST',headers:{origin:'null','sec-fetch-site':'same-origin'}});
+assert(requestOriginAllowed(inferredRequest,env));
+assert(!requestOriginAllowed(inferredRequest,{...env,NODE_ENV:'production',TRUSTED_ORIGINS:alias}));
 Object.assign(process.env,env);
 delete process.env.DATABASE_URL;
 delete process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN;
