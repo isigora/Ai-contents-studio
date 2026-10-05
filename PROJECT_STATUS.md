@@ -141,3 +141,21 @@ attempting that access again. No live Codespace or user DB changes in this check
 Next gate remains actual private Codespace browser login/workspace and mobile verification.
 P0/P1 remain PARTIAL, P2/P3 NOT STARTED. Prior build/acceptance results are historical;
 this checkpoint changes diagnostic tooling/documentation, not the application runtime.
+
+## Checkpoint 006 — guarded Codespace authentication origin (2026-10-05 UTC)
+Baseline remote main: 5107e09bdd6b74f6827f3543a5a2f0026817d331.
+User-provided live evidence: initially no service listening on 4173; after pull/install/start,
+the user reported /studio opened. Public APP_URL and TRUSTED_ORIGINS matched the browser
+URL, but Better Auth logs rejected https://localhost:4173 on three login attempts.
+Installed Better Auth validates Origin, or infers request origin for Origin=null with
+Sec-Fetch-Site=same-origin. Exact proxy/header transformation in Codespace is unverified.
+Added only https://localhost:4173 to effective trusted origins under strict local Codespace
+guards: nonproduction NODE_ENV, no external DB, matching named forwarded APP_URL.
+No wildcard, disabled origin/CSRF validation, production allowlist expansion, or secret changes.
+Fresh Work verification, Node 24.19.0: isolated PGlite auth test checks HTTPS-loopback login,
+public-origin login and null/same-origin inference; foreign origin, wrong port and null/cross-site
+rejected. Guard tests exclude production/external-DB/non-Codespace/mismatched origins.
+Typecheck and production build PASS. This is local evidence, not the user's browser result.
+Credentials in tests are random and confined to a new temporary DB; user DB untouched.
+Next: user pulls update, restarts the existing Codespace's dev server to clear cached auth,
+and retries review-owner login and Development Review workspace access. P0/P1 remain PARTIAL.

@@ -1,7 +1,12 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
-- Last work: checkpoint 004 pushed and remote verified; read-only local diagnosis added (005).
+- Last work: checkpoint 006: guarded HTTPS loopback auth origin for Codespace preview.
+- User ran update/start and reported /studio opens, but login logs reject
+  https://localhost:4173 despite correct public APP_URL/TRUSTED_ORIGINS. New isolated
+  auth tests reproduce this inferred origin and validate successful password login.
+- Next user action: pull checkpoint 006, stop/reopen same Codespace to clear cached
+  auth instance, retry login. Actual browser login remains unverified.
 - Tested locally: 26 acceptance, 4 persistence, 3 locales, typecheck, build, 4 readiness cases,
   actual Next cold start and repeat startup. Remote Codespace and physical iPhone NOT tested.
 - BLOCKER: authenticated browser journey still unverified. Local Chromium absent; official
@@ -14,7 +19,7 @@
   local success cannot certify forwarding, browser login, or the phone.
 - Next: inspect live Codespace before pulling; verify real forwarded /studio and login,
   company/product editing, generation, save/version/copy, approval, media/reuse at mobile width.
-- Tests: pnpm test; pnpm test:readiness; pnpm typecheck; pnpm build.
+- Tests: pnpm test; pnpm test:readiness; pnpm test:auth-origins; pnpm typecheck; pnpm build.
 - Relevant files: app/studio/page.tsx, scripts/{start-codespaces.sh,check-ready.mjs},
   components/ui-language.tsx, lib/server/auth.ts. Avoid dumping whole large JSX files.
 - Keep credentials and .data private. Existing review account password is only in the

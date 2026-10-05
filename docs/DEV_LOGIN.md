@@ -16,6 +16,15 @@ raw environment files, credential files or server logs.
 
 ## Development account
 
+If login reports `Invalid origin: https://localhost:4173`, update to checkpoint 006
+and restart the Next development server (stop/reopen the same Codespace if needed).
+The auth configuration adds ONLY this exact alias when CODESPACES=true, APP_MODE=local,
+NODE_ENV is not production, DATABASE_URL is absent, and APP_URL matches this Codespace's
+port-4173 URL. Production/non-Codespaces configurations do not receive this alias.
+Origin and CSRF checks remain enabled; other origins and ports are rejected.
+The private credential file, database and Better Auth secret are not changed.
+The server caches the auth instance, so pulling the code alone is not a reliable restart.
+
 This helper is only for the existing private Codespaces local development database.
 It refuses non-Codespaces, non-local mode, production NODE_ENV, external DATABASE_URL,
 and an APP_URL that does not match this Codespace's forwarded port 4173.
