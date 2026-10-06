@@ -1,13 +1,14 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
-- Last work: checkpoint 007: quick factual entry + X draft template; separate business
-  API origin check now matches guarded auth behavior. Additive knowledge_intake schema.
+- Last work: checkpoint 008: source-linked AI pasted-text interpretation → manual fact
+  review → registration → AI text adapter. Additive ai_interpretation/provenance link.
+  See docs/AI_ACTIVATION.md; provider/model/cost approval required before live calls.
 - User reports live preview opens and login works after manual startup. First SNS is X.
   Final product direction and agent requirements: docs/PRODUCT_DIRECTION.md.
-- Next user action: pull 007 and restart dev server for schema/cache refresh. Then verify
+- Next user action: pull 008 and restart dev server for schema/cache refresh. Then verify
   overview → quick entry → X text generation → editing/version/export in the browser.
-- Fresh tests: 10 quick-start server/SSR integration scenarios, auth origins, full existing
+- Fresh tests: 15 mocked AI intake + 10 quick-start server/SSR scenarios, auth origins, full existing
   acceptance/persistence/locales, readiness/diagnostics, typecheck and build PASS.
 - Tested locally: 26 acceptance, 4 persistence, 3 locales, typecheck, build, 4 readiness cases,
   actual Next cold start and repeat startup. Remote Codespace and physical iPhone NOT tested.
@@ -21,7 +22,7 @@
   local success cannot certify forwarding, browser login, or the phone.
 - Next: inspect live Codespace before pulling; verify real forwarded /studio and login,
   company/product editing, generation, save/version/copy, approval, media/reuse at mobile width.
-- Tests: pnpm test; pnpm test:quick-start; pnpm test:readiness; pnpm test:auth-origins;
+- Tests: pnpm test; pnpm test:ai-intake; pnpm test:quick-start; pnpm test:readiness; pnpm test:auth-origins;
   pnpm typecheck; pnpm build.
 - Relevant files: app/studio/page.tsx, scripts/{start-codespaces.sh,check-ready.mjs},
   components/ui-language.tsx, lib/server/auth.ts. Avoid dumping whole large JSX files.

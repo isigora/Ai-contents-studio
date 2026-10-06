@@ -9,6 +9,8 @@ import {inspectFile,putObject,getObject,deleteObject} from './storage';
 import sharp from 'sharp';
 import {p1Route} from './p1';
 import {channels,templateVersion} from '../templates';
+import {aiConfiguration} from './ai-provider';
+import {interpretationRoute} from './interpretation-route';
 export class HttpError extends Error{constructor(public status:number,public code:string,message:string){super(message)}}
 function fail(status:number,code:string,message:string):never{throw new HttpError(status,code,message)}
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -33,7 +35,7 @@ export async function handle(req:Request):Promise<Response>{
   const auth=await getAuth(),session=await auth.api.getSession({headers:req.headers});
   if(!session)fail(401,'UNAUTHORIZED','먼저 로그인해 주세요.');uid=session.user.id;
   const db=await getDb();
-  if(path[0]==='me'&&method==='GET'){const ws=await rows('SELECT w.*,m.role FROM workspace w JOIN membership m ON w.id=m.workspace_id WHERE m.user_id=$1 ORDER BY w.created_at',[uid]);return json({user:{id:uid,name:session.user.name,email:session.user.email},workspaces:ws,mode:process.env.AI_ENABLED==='true'?'ai':'basic'})}
+  if(path[0]==='me'&&method==='GET'){const ws=await rows('SELECT w.*,m.role FROM workspace w JOIN membership m ON w.id=m.workspace_id WHERE m.user_id=$1 ORDER BY w.created_at',[uid]);return json({user:{id:uid,name:session.user.name,email:session.user.email},workspaces:ws,mode:aiConfiguration()?'ai':'basic',ai_intake_available:!!aiConfiguration()})}
   if(path[0]!=='workspaces')fail(404,'NOT_FOUND','경로를 찾을 수 없습니다.');
   if(path.length===1&&method==='POST'){
    const p=z.object({name:z.string().trim().min(1).max(160),locale:z.enum(['ko','zh','en']).default('ko')}).parse(await parse(req));
@@ -41,6 +43,7 @@ export async function handle(req:Request):Promise<Response>{
   }
   wid=path[1];if(!wid)fail(404,'NOT_FOUND','작업공간을 선택해 주세요.');const workspace=await access(uid,wid,method!=='GET');const resource=path[2],id=path[3];
   if(!resource&&method==='GET')return json(workspace);
+  if(resource==='interpretations'&&path.length<=4)return await interpretationRoute({db,uid,wid,req,id,parse,access,fail});
   const extended=await p1Route({db,uid,wid,workspace,resource,id,path,method,req,parse,access,fullContent,own,audit,fail});if(extended)return extended;
   if(resource==='intake'&&method==='POST'&&!id){
    const input=intakeSchema.parse(await parse(req));
@@ -57,6 +60,7 @@ export async function handle(req:Request):Promise<Response>{
     }
     const count=(await q.query("SELECT count(*)::int AS n FROM knowledge_intake WHERE workspace_id=$1 AND created_at>now()-interval '1 minute'",[wid])).rows[0].n;
     if(count>=10)fail(429,'INTAKE_LIMIT','잠시 후 다시 등록해 주세요.');
+    if(input.interpretation_id){const suggestion=(await q.query("SELECT id FROM ai_interpretation WHERE id=$1 AND workspace_id=$2 AND user_id=$3 AND status='succeeded'",[input.interpretation_id,wid,uid])).rows[0];if(!suggestion)fail(404,'NOT_FOUND','자료를 찾을 수 없습니다.');}
     const audienceId=randomUUID(),offeringId=randomUUID();
     const audience=audienceSchema.parse({name:input.audience,status:'approved'});
     const offering=offeringSchema.parse({name:input.name,kind:input.kind,summary:input.summary,audience_id:audienceId,cta:input.cta,currency:'KRW'});
@@ -64,7 +68,7 @@ export async function handle(req:Request):Promise<Response>{
     await q.query('INSERT INTO offering(id,workspace_id,audience_id,data) VALUES($1,$2,$3,$4)',[offeringId,wid,audienceId,JSON.stringify(offering)]);
     await revision(q,uid,wid,'audience',audienceId,1,audience);
     await revision(q,uid,wid,'offering',offeringId,1,offering);
-    await q.query('INSERT INTO knowledge_intake(workspace_id,user_id,request_key,request_hash,offering_id,audience_id) VALUES($1,$2,$3,$4,$5,$6)',[wid,uid,key,hash,offeringId,audienceId]);
+    await q.query('INSERT INTO knowledge_intake(workspace_id,user_id,request_key,request_hash,offering_id,audience_id,interpretation_id) VALUES($1,$2,$3,$4,$5,$6,$7)',[wid,uid,key,hash,offeringId,audienceId,input.interpretation_id||null]);
     return {offering_id:offeringId,audience_id:audienceId,replayed:false};
    });return json(result,result.replayed?200:201);
   }
@@ -132,7 +136,7 @@ export async function handle(req:Request):Promise<Response>{
      const count=(await q.query("SELECT count(*)::int AS n FROM generation_run WHERE workspace_id=$1 AND created_at>now()-interval '1 minute'",[wid])).rows[0].n;
      if(count>=20)fail(429,'RATE_LIMIT','요청이 많습니다. 잠시 후 다시 시도해 주세요.');
      const ai=process.env.AI_ENABLED==='true',cost=ai?Number(process.env.AI_RUN_RESERVATION_USD||'.10'):0,limit=Number(process.env.AI_DAILY_LIMIT_USD||'2');
-     if(ai){const spent=Number((await q.query("SELECT coalesce(sum(cost_estimate),0) AS amount FROM generation_run WHERE workspace_id=$1 AND created_at>date_trunc('day',now())",[wid])).rows[0].amount);if(!Number.isFinite(cost)||cost<=0||!Number.isFinite(limit)||spent+cost>limit)fail(429,'BUDGET_LIMIT','설정된 일일 생성 예산 한도에 도달했습니다.');}
+     if(ai){const spent=Number((await q.query("SELECT coalesce(sum(cost_estimate),0) AS amount FROM (SELECT cost_estimate FROM generation_run WHERE workspace_id=$1 AND created_at>date_trunc('day',now()) UNION ALL SELECT cost_estimate FROM ai_interpretation WHERE workspace_id=$1 AND created_at>date_trunc('day',now())) r",[wid])).rows[0].amount);if(!Number.isFinite(cost)||cost<=0||!Number.isFinite(limit)||spent+cost>limit)fail(429,'BUDGET_LIMIT','설정된 일일 생성 예산 한도에 도달했습니다.');}
      const runId=randomUUID();await q.query('INSERT INTO generation_run(id,workspace_id,user_id,idempotency_key,request_hash,status,model,request,cost_estimate) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[runId,wid,uid,key,hash,'running',ai?(process.env.AI_MODEL||'not-configured'):'facts-template-v1',JSON.stringify(settings),cost]);
      return {runId,snapshot:{offering,audience,company,revision:w.revision} as Snapshot};
     });

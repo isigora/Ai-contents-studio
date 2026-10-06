@@ -27,6 +27,16 @@ CREATE TABLE IF NOT EXISTS knowledge_intake(
  FOREIGN KEY(workspace_id,audience_id) REFERENCES audience(workspace_id,id));
 CREATE INDEX IF NOT EXISTS intake_rate_idx ON knowledge_intake(workspace_id,created_at);
 
+-- Unconfirmed AI intake is private, durable and separate from approved business facts.
+CREATE TABLE IF NOT EXISTS ai_interpretation(
+ id text PRIMARY KEY,workspace_id text NOT NULL REFERENCES workspace(id),user_id text NOT NULL REFERENCES auth_user(id),
+ request_key text NOT NULL,request_hash text NOT NULL,source text NOT NULL,model text NOT NULL,
+ status text NOT NULL CHECK(status IN('running','succeeded','failed')),result jsonb,error_code text,
+ cost_estimate numeric NOT NULL CHECK(cost_estimate>0),created_at timestamptz NOT NULL DEFAULT now(),updated_at timestamptz NOT NULL DEFAULT now(),
+ UNIQUE(workspace_id,user_id,request_key));
+CREATE INDEX IF NOT EXISTS interpretation_rate_idx ON ai_interpretation(workspace_id,created_at);
+ALTER TABLE knowledge_intake ADD COLUMN IF NOT EXISTS interpretation_id text REFERENCES ai_interpretation(id);
+
 -- P1 is additive: legacy reviewed means personal review, never external approval.
 CREATE TABLE IF NOT EXISTS content_workflow(
  workspace_id text NOT NULL, content_id text NOT NULL, version integer NOT NULL,

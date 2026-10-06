@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-06T10:53:53.365Z",
+  "baseline": "660c710dd51d7f476e0fdc28fb6ba0986969abf9",
+  "environment": "isolated Work PGlite, disposable users; mocked provider, zero external requests",
+  "tests": [
+    {
+      "name": "Disabled or incomplete configuration rejects intake without calls or saved jobs",
+      "status": "PASS"
+    },
+    {
+      "name": "Consent, size, key and workspace permission checks precede transmission",
+      "status": "PASS"
+    },
+    {
+      "name": "Source-only AI interpretation persists unconfirmed suggestions without creating facts",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful replay preserves result and rejects same-key changes without new cost/calls",
+      "status": "PASS"
+    },
+    {
+      "name": "Concurrent retry returns running and only one provider invocation",
+      "status": "PASS"
+    },
+    {
+      "name": "Confirmed edited information saves provenance and remains idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "Invented quotations/numbers and unexpected schema fields fail without publishing facts",
+      "status": "PASS"
+    },
+    {
+      "name": "Upstream errors and streamed oversized output are sanitized and bounded",
+      "status": "PASS"
+    },
+    {
+      "name": "Intake and content share budget reservations; over-limit requests call no provider",
+      "status": "PASS"
+    },
+    {
+      "name": "Chat-completions adapter extracts JSON and rejects truncated outputs",
+      "status": "PASS"
+    },
+    {
+      "name": "Interrupted jobs do not auto-reissue potentially billed requests",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown keyword-only fields remain null rather than silently invented",
+      "status": "PASS"
+    },
+    {
+      "name": "Confirmed AI intake generates a validated AI content version using the same adapter",
+      "status": "PASS"
+    },
+    {
+      "name": "Per-workspace interpretation rate limit blocks transmission before reservation",
+      "status": "PASS"
+    },
+    {
+      "name": "AI intake renders with consent, disabled provider and bounded input in all UI languages",
+      "status": "PASS"
+    }
+  ],
+  "notRun": [
+    "Live provider/model factual quality",
+    "Browser interaction or mobile",
+    "Codespace DB migration",
+    "Image/video synthesis",
+    "External posting or agent commerce"
+  ]
+}

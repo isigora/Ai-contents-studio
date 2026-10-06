@@ -1,8 +1,8 @@
 # AI Content Studio — Project Status
 
-Last updated: 2026-10-05 UTC.
+Last updated: 2026-10-06 UTC.
 Repository: isigora/Ai-contents-studio. Branch: main.
-Current phase: P0/P1 review build recovery and Codespaces verification.
+Current phase: P0/P1 AI intake preparation and preview verification; external activation pending.
 Runnable package version: 0.2.0 (P0 + P1), extracted into the repository; original ZIP retained.
 Latest verified source archive commit: c08243657fc5324df542c518ee7eb4d99b1fceff.
 Last saved configuration commit at recovery: 03c5498decc5a6128f1fa9398038c09f47391df7.
@@ -32,7 +32,7 @@ Implemented: Better Auth signup/login/session; workspace roles and isolation; co
 Main files: app/studio/page.tsx, lib/server/{auth,db,service,generator,storage}.ts, lib/server/schema.sql, lib/models.ts.
 Evidence: 18 P0 acceptance scenarios within tests/acceptance.ts; prior test run 2026-10-01 03:08 UTC.
 Remaining: authenticated browser signup → edit → generate → copy flow including mobile; operational email verification/reset, PDF scanning and deployment decisions.
-Known limitations: AI_ENABLED=false uses factual templates, not a live AI model; external PostgreSQL/S3 not verified; PDF extraction/scanning not connected.
+Known limitations: AI_ENABLED=false uses factual templates, not a live AI model; AI intake/adapters are mock-tested but not activated; external PostgreSQL/S3 not verified; PDF extraction/scanning not connected.
 Next: finish Codespaces HTTP/UI verification and authenticated E2E.
 
 ### P1
@@ -201,3 +201,39 @@ schema runs and cached server modules refresh; use start-codespaces.sh if not au
 Next browser path: overview → quick entry → X text generation → edit/save → export;
 then approval, photo card, MP4/SRT and reuse. Next external gate: provider/budget selection
 and X OAuth scope/callback/cost approval, after P0/P1 release evidence. P0/P1 remain PARTIAL.
+
+## Checkpoint 008 — source-linked AI intake and shared text adapter
+Date: 2026-10-06 UTC. Baseline remote main: 660c710dd51d7f476e0fdc28fb6ba0986969abf9.
+User supplied an authenticated quick-entry screenshot and requests progression to actual
+AI interpretation, generative media, X publishing and consented agent negotiation. The
+screenshot confirms the form is deployed; it does not prove generation/media/browser gates.
+This checkpoint implements the first concrete unit, not all four capabilities.
+
+Implemented POST/GET interpretations, additive private ai_interpretation table and optional
+provenance link on confirmed knowledge_intake. Pasted text is sent only with consent and
+editor/owner access; model results remain unconfirmed, separate from factual records.
+Candidates carry verbatim source quotes; invalid schema, absent quotes and invented numbers
+are rejected. Missing facts remain null. UI shows suggestions/quotes/questions, permits
+correction and requires confirmation before atomic registration. Kind must be selected when
+unknown. No auto-approval/publication. Quotation checks do not establish semantic accuracy.
+
+Added bounded server-only contract/chat-completions adapter reused by text generation,
+30-second timeout, 100KB output limit, no redirects/upstream secret or error leakage.
+Intake is durable/idempotent with running/failed/interrupted handling; retries do not repeat
+billed calls automatically. Shared workspace-locked intake/text reservations and intake
+rate limits apply. Reservations are not metered or guaranteed USD ceilings. Preserved
+channel advice/length warnings in AI text output, formerly only present in template output.
+
+Fresh isolated Work verification, Node 24.19.0/pnpm 11.25.0: 15 AI intake scenarios PASS;
+10 quick-start scenarios, auth origin checks, 26 acceptance, 4 persistence, 3 language renders
+PASS; typecheck and final production build PASS. See docs/ai-intake-results.json. Provider
+responses are MOCKED; no paid/live AI call, customer data transmission, live Codespace DB
+mutation, X posting or agent negotiation. Original specification hash, existing data/secrets
+and unknown ZIP modification preserved. Test-generated video fixture restored to baseline.
+
+Activation: docs/AI_ACTIVATION.md gives server settings/limitations. Provider, model, data
+scope and cost approval remain unresolved; do not enable paid services implicitly. Existing
+remote-browser review restriction remains; no alternate access path attempted.
+Next: pull/restart preview for additive schema/UI; approve/configure provider privately;
+verify live interpretation→confirmation→AI text; then generative media, X, agent protocol.
+P0/P1 remain PARTIAL, P2/P3 NOT STARTED. No production release certification.
