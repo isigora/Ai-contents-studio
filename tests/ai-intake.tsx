@@ -6,7 +6,7 @@ import path from 'node:path';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {AiIntake} from '../components/ai-intake';
 import {UiLanguageProvider} from '../components/ui-language';
-Object.assign(process.env,{APP_MODE:'local',NODE_ENV:'development',APP_URL:'http://localhost:4173',TRUSTED_ORIGINS:'http://localhost:4173',AI_ENABLED:'false',AI_DAILY_LIMIT_USD:'100',AI_RUN_RESERVATION_USD:'.10'});
+Object.assign(process.env,{APP_MODE:'local',NODE_ENV:'development',APP_URL:'http://localhost:4173',TRUSTED_ORIGINS:'http://localhost:4173',AI_ENABLED:'false',AI_DAILY_LIMIT_USD:'100',AI_MONTHLY_LIMIT_USD:'100',AI_RUN_RESERVATION_USD:'.10'});
 delete process.env.DATABASE_URL;delete process.env.CODESPACES;
 process.env.BETTER_AUTH_SECRET=randomBytes(32).toString('hex');
 process.env.LOCAL_DATA_DIR=await mkdtemp(path.join(os.tmpdir(),'studio-ai-intake-'));
@@ -91,6 +91,14 @@ try{
   assert.equal((await call(A.cookie,`workspaces/${wid}/generations`,'POST',settings,randomUUID())).status,429);assert.equal(calls,before);
   process.env.AI_DAILY_LIMIT_USD='100';
  });
+ await test('Monthly reservations and invalid budget settings block intake and text calls',async()=>{
+  const before=calls;process.env.AI_MONTHLY_LIMIT_USD='.10';
+  assert.equal((await call(A.cookie,url,'POST',payload,randomUUID())).status,429);
+  const settings={...offering,objective:'인지',format:'social',channel:'x',language:'ko',tone:'concise',length:'short',cta:'',source_revision:3};
+  assert.equal((await call(A.cookie,`workspaces/${wid}/generations`,'POST',settings,randomUUID())).status,429);
+  for(const value of ['0','-1','NaN']){process.env.AI_MONTHLY_LIMIT_USD=value;assert.equal((await call(A.cookie,url,'POST',payload,randomUUID())).status,429);}
+  process.env.AI_MONTHLY_LIMIT_USD='100';assert.equal(calls,before);
+ });
  await test('Chat-completions adapter extracts JSON and rejects truncated outputs',async()=>{
   const other=(await call(A.cookie,'workspaces','POST',{name:'Adapter workspace'})).data.id;process.env.AI_PROVIDER_ADAPTER='chat-completions';
   upstream=()=>Promise.resolve(Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(suggestion)}}]}));
@@ -130,7 +138,7 @@ try{
   for(const locale of ['ko','zh','en'] as const){const html=renderToStaticMarkup(<UiLanguageProvider initialLocale={locale}><AiIntake available={false} disabled={false} onInterpret={async()=>saved} onApply={()=>{}}/></UiLanguageProvider>);
    assert(html.includes(locale==='ko'?'AI로 자료 해석하기':locale==='zh'?'使用 AI 解析资料':'Interpret materials with AI'));assert(html.includes('maxLength="12000"'));assert(html.includes('type="checkbox"'));assert(html.includes('disabled=""'));}
  });
- await writeFile('docs/ai-intake-results.json',JSON.stringify({date:new Date().toISOString(),baseline:'660c710dd51d7f476e0fdc28fb6ba0986969abf9',environment:'isolated Work PGlite, disposable users; mocked provider, zero external requests',tests:results,notRun:['Live provider/model factual quality','Browser interaction or mobile','Codespace DB migration','Image/video synthesis','External posting or agent commerce']},null,2)+'\n');
+ await writeFile('docs/ai-intake-results.json',JSON.stringify({date:new Date().toISOString(),baseline:'e9d3701605bc80f411d733b32549487ab11787c5',environment:'isolated Work PGlite, disposable users; mocked provider, zero external requests',tests:results,notRun:['Live provider/model factual quality','Browser interaction or mobile','Codespace DB migration','Image/video synthesis','External posting or agent commerce']},null,2)+'\n');
  console.log(`${results.length} AI intake scenarios PASS`);
 }finally{globalThis.fetch=originalFetch;}
 process.exit(0);

@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-06T10:53:53.365Z",
-  "baseline": "660c710dd51d7f476e0fdc28fb6ba0986969abf9",
+  "date": "2026-10-06T11:05:14.303Z",
+  "baseline": "e9d3701605bc80f411d733b32549487ab11787c5",
   "environment": "isolated Work PGlite, disposable users; mocked provider, zero external requests",
   "tests": [
     {
@@ -37,6 +37,10 @@
     },
     {
       "name": "Intake and content share budget reservations; over-limit requests call no provider",
+      "status": "PASS"
+    },
+    {
+      "name": "Monthly reservations and invalid budget settings block intake and text calls",
       "status": "PASS"
     },
     {

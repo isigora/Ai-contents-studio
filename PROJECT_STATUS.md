@@ -237,3 +237,31 @@ remote-browser review restriction remains; no alternate access path attempted.
 Next: pull/restart preview for additive schema/UI; approve/configure provider privately;
 verify live interpretation→confirmation→AI text; then generative media, X, agent protocol.
 P0/P1 remain PARTIAL, P2/P3 NOT STARTED. No production release certification.
+
+## Checkpoint 009 — selected AI review profile and monthly reservation guard
+Date: 2026-10-06 UTC. Baseline remote: e9d3701605bc80f411d733b32549487ab11787c5.
+User delegates update/restart, provider/model/budget selection and private credential setup.
+Selected OpenAI gpt-4.1-mini for initial interpretation/text; reservation limits USD 0.50/day,
+USD 10/month/workspace, USD 0.10/attempt. Provider price verified from official model docs;
+no credits purchased or paid calls made. Limits are estimates, not actual metered/account caps.
+
+Implemented guarded `pnpm setup:ai-review`: existing local Codespace/origin required; private
+OPENAI_API_KEY required; production/external DB/symlink refused; atomic mode-0600 config
+preserves auth/DB/storage/origins. Centralised AI reservation checks add a shared calendar
+month limit to intake/text without modifying existing DB rows or releasing failed costs.
+Configuration failure with no key does not change the env file or falsely enable AI.
+
+Fresh Work tests: 6 isolated configuration checks, 16 mocked AI intake scenarios, 26 acceptance,
+4 persistence and 3 locale checks PASS; typecheck/final build PASS. Tests use random temporary
+credentials and DBs. User DB/secrets untouched; unknown source ZIP modification preserved.
+Original specification unchanged. Provider selection does not certify live model quality.
+
+BLOCKED live deployment: available GitHub connector has source tools but no Codespace
+terminal/secret-management capability. Prior automatic review rejected remote browser access
+even after user approval; no bypass attempted. This local Work env has no AI credential;
+the current Codespace secret state is inaccessible, not assumed empty. We cannot issue a
+provider key on the user's account. Actual Codespace pull/restart/profile application and
+live model test remain NOT RUN. Recovery is documented in docs/AI_ACTIVATION.md.
+Next unavoidable owner action: issue/store a private OPENAI_API_KEY; execute setup/restart
+in the existing Codespace. Then validate live intake/text before media→X→agent activation.
+P0/P1 PARTIAL, P2/P3 NOT STARTED. No publishing or commerce claim.

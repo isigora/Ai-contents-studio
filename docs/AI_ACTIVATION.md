@@ -19,6 +19,7 @@ chat, a form, source code or Git. Keep port 4173 Private and preserve .data.
 | AI_MODEL | Approved model ID; no hardcoded provider/model |
 | AI_RUN_RESERVATION_USD | Positive estimated reservation per attempt; default 0.10 |
 | AI_DAILY_LIMIT_USD | Workspace UTC-day reservation ceiling; default 2 |
+| AI_MONTHLY_LIMIT_USD | Workspace calendar-month reservation ceiling; default 10 |
 
 Chat-completions uses system/user messages, JSON object mode, max_completion_tokens=2500
 and store=false. Check the selected provider/model supports these options; this is not
@@ -75,3 +76,33 @@ Next: approved live provider smoke test and browser fact/content flow, then gene
 image/video jobs with usage rights and immutable approval; owner OAuth and approved X
 publication; finally consent-scoped need detection/proposal exchange/owner reporting.
 Purchases, payments and contract acceptance require separately configured delegation.
+
+## Selected review profile — 2026-10-06
+
+User delegated provider/model/budget selection and private configuration. Initial text
+provider is OpenAI, model gpt-4.1-mini, endpoint https://api.openai.com/v1/chat/completions.
+Review reservations: USD 0.10 per attempt, USD 0.50 per day, USD 10 per calendar month,
+per workspace, jointly covering interpretation and text generation including failed attempts.
+These are conservative reservation limits, not proof of actual billing or an account-wide cap.
+No credits purchased and no key fabricated. Image/video provider/model budgets are not enabled.
+Official model/pricing source: https://developers.openai.com/api/docs/models/gpt-4.1-mini
+Standard text pricing checked today: USD 0.40 input and USD 1.60 output per million tokens.
+Recheck before production; live quality/account access have not been established.
+
+`pnpm setup:ai-review` safely applies this profile only inside a matching local Codespace,
+using private OPENAI_API_KEY from Codespaces Secrets (or an existing matching AI_API_KEY).
+Missing credential, production/external DB, wrong origin and symlink targets are refused
+before mutation. Existing auth secret, data path, origins and unrelated settings are preserved;
+configuration is replaced atomically with mode 0600. The script does not make API calls.
+
+One-time owner action: create a project API key at https://platform.openai.com/api-keys;
+save it as private OPENAI_API_KEY at https://github.com/settings/codespaces, granting access
+only to isigora/Ai-contents-studio. Never share it in chat or commit it. Restart the existing
+Codespace to load the secret, inspect worktree, pull with `git pull --ff-only`, then run
+`pnpm setup:ai-review`. Restart the existing Codespace once more to reload Next configuration.
+If no service starts, use `bash scripts/start-codespaces.sh`; verify `pnpm check:codespaces`.
+Do not discard unknown changes to make a pull succeed. Keep forwarding Private.
+
+Work has GitHub source tools but no Codespace terminal API. Earlier automatic review
+rejected remote browser execution even after owner approval; no alternate tunnel/browser
+was attempted. Therefore these live setup/restart steps have NOT been executed by Work.

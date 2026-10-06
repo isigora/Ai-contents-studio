@@ -1,6 +1,10 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
+- Checkpoint 009 selects OpenAI gpt-4.1-mini; review reservations $0.50/day, $10/month per
+  workspace. `pnpm setup:ai-review` needs private OPENAI_API_KEY inside the Codespace.
+  Work has no Codespace terminal tool; remote pull/restart/key setup NOT RUN. Do not imply
+  the inaccessible live env lacks a key. Known local Work env has no AI credential.
 - Last work: checkpoint 008: source-linked AI pasted-text interpretation → manual fact
   review → registration → AI text adapter. Additive ai_interpretation/provenance link.
   See docs/AI_ACTIVATION.md; provider/model/cost approval required before live calls.

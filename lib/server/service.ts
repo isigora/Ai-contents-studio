@@ -11,6 +11,7 @@ import {p1Route} from './p1';
 import {channels,templateVersion} from '../templates';
 import {aiConfiguration} from './ai-provider';
 import {interpretationRoute} from './interpretation-route';
+import {aiReservation,AiBudgetError} from './ai-budget';
 export class HttpError extends Error{constructor(public status:number,public code:string,message:string){super(message)}}
 function fail(status:number,code:string,message:string):never{throw new HttpError(status,code,message)}
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -135,8 +136,8 @@ export async function handle(req:Request):Promise<Response>{
      if(offering.archived||audience.archived)fail(400,'ARCHIVED','보관된 자료는 생성에 사용할 수 없습니다.');
      const count=(await q.query("SELECT count(*)::int AS n FROM generation_run WHERE workspace_id=$1 AND created_at>now()-interval '1 minute'",[wid])).rows[0].n;
      if(count>=20)fail(429,'RATE_LIMIT','요청이 많습니다. 잠시 후 다시 시도해 주세요.');
-     const ai=process.env.AI_ENABLED==='true',cost=ai?Number(process.env.AI_RUN_RESERVATION_USD||'.10'):0,limit=Number(process.env.AI_DAILY_LIMIT_USD||'2');
-     if(ai){const spent=Number((await q.query("SELECT coalesce(sum(cost_estimate),0) AS amount FROM (SELECT cost_estimate FROM generation_run WHERE workspace_id=$1 AND created_at>date_trunc('day',now()) UNION ALL SELECT cost_estimate FROM ai_interpretation WHERE workspace_id=$1 AND created_at>date_trunc('day',now())) r",[wid])).rows[0].amount);if(!Number.isFinite(cost)||cost<=0||!Number.isFinite(limit)||spent+cost>limit)fail(429,'BUDGET_LIMIT','설정된 일일 생성 예산 한도에 도달했습니다.');}
+     const ai=process.env.AI_ENABLED==='true';let cost=0;
+     if(ai){try{cost=await aiReservation(q,wid);}catch(error){if(error instanceof AiBudgetError)fail(429,'BUDGET_LIMIT','설정된 생성 예산 한도에 도달했거나 예산 설정이 올바르지 않습니다.');throw error;}}
      const runId=randomUUID();await q.query('INSERT INTO generation_run(id,workspace_id,user_id,idempotency_key,request_hash,status,model,request,cost_estimate) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[runId,wid,uid,key,hash,'running',ai?(process.env.AI_MODEL||'not-configured'):'facts-template-v1',JSON.stringify(settings),cost]);
      return {runId,snapshot:{offering,audience,company,revision:w.revision} as Snapshot};
     });

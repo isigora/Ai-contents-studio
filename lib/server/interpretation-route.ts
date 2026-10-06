@@ -4,6 +4,7 @@ import {interpretationInputSchema} from '../ai-intake';
 import type {Database,Queryable} from './db';
 import {aiConfiguration,AiError} from './ai-provider';
 import {interpret} from './interpretation';
+import {aiReservation,AiBudgetError} from './ai-budget';
 export async function interpretationRoute(ctx:{db:Database,uid:string,wid:string,req:Request,id?:string,parse:(req:Request)=>Promise<any>,access:(uid:string,wid:string,write:boolean,q:Queryable)=>Promise<any>,fail:(status:number,code:string,message:string)=>never}):Promise<Response>{
  const {db,uid,wid,req,id,parse,access,fail}=ctx;
  const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -21,9 +22,7 @@ export async function interpretationRoute(ctx:{db:Database,uid:string,wid:string
   const old=(await q.query('SELECT * FROM ai_interpretation WHERE workspace_id=$1 AND user_id=$2 AND request_key=$3',[wid,uid,key])).rows[0];
   if(old){if(old.request_hash!==hash)fail(409,'KEY_CONFLICT','다른 입력에 같은 요청 키를 사용할 수 없습니다.');return {old};}
   const config=aiConfiguration();if(!config)return fail(503,'AI_NOT_CONFIGURED','AI 제공자 설정이 필요합니다. 입력 자료는 유지됩니다.');
-  const cost=Number(process.env.AI_RUN_RESERVATION_USD||'.10'),limit=Number(process.env.AI_DAILY_LIMIT_USD||'2');
-  const spent=Number((await q.query("SELECT coalesce(sum(cost_estimate),0) AS amount FROM (SELECT cost_estimate FROM generation_run WHERE workspace_id=$1 AND created_at>date_trunc('day',now()) UNION ALL SELECT cost_estimate FROM ai_interpretation WHERE workspace_id=$1 AND created_at>date_trunc('day',now())) r",[wid])).rows[0].amount);
-  if(!Number.isFinite(cost)||cost<=0||!Number.isFinite(limit)||limit<=0||spent+cost>limit)fail(429,'BUDGET_LIMIT','설정된 일일 생성 예산 한도에 도달했습니다.');
+  let cost:number;try{cost=await aiReservation(q,wid);}catch(error){if(error instanceof AiBudgetError)return fail(429,'BUDGET_LIMIT','설정된 생성 예산 한도에 도달했거나 예산 설정이 올바르지 않습니다.');throw error;}
   const count=(await q.query("SELECT count(*)::int AS n FROM ai_interpretation WHERE workspace_id=$1 AND created_at>now()-interval '1 minute'",[wid])).rows[0].n;
   if(count>=10)fail(429,'RATE_LIMIT','요청이 많습니다. 잠시 후 다시 시도해 주세요.');
   const runId=randomUUID();
