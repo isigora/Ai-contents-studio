@@ -23,11 +23,19 @@ export async function requestAi(task:string,instructions:string,data:Record<stri
  };
  try{
   const response=await fetch(config.endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+config.key},body:JSON.stringify(body),signal:AbortSignal.timeout(30000),redirect:'error'});
-  if(!response.ok){await response.body?.cancel();throw new AiError('AI_PROVIDER_FAILED');}
+  if(!response.ok){
+   // Read only a bounded error body; retain a fixed classification, never raw messages.
+   let upstreamCode='';try{const error=await boundedJson(response);if(typeof error?.error?.code==='string')upstreamCode=error.error.code;}catch{}
+   if(['insufficient_quota','billing_hard_limit_reached'].includes(upstreamCode))throw new AiError('AI_BILLING_QUOTA');
+   const code=response.status===401?'AI_AUTH_FAILED':response.status===403?'AI_PERMISSION_DENIED':response.status===429?'AI_RATE_LIMIT':response.status===404?'AI_MODEL_UNAVAILABLE':response.status===400?'AI_REQUEST_INVALID':'AI_PROVIDER_FAILED';
+   throw new AiError(code);
+  }
   const raw=await boundedJson(response);
   if(config.adapter==='contract')return raw;
   const choice=raw?.choices?.[0];
-  if(choice?.finish_reason!=='stop'||choice.message?.refusal||typeof choice.message?.content!=='string')throw new AiError('AI_OUTPUT_INVALID');
+  if(choice?.finish_reason==='length')throw new AiError('AI_OUTPUT_TRUNCATED');
+  if(choice?.message?.refusal||choice?.finish_reason==='content_filter')throw new AiError('AI_REFUSAL');
+  if(choice?.finish_reason!=='stop'||typeof choice.message?.content!=='string')throw new AiError('AI_OUTPUT_INVALID');
   try{return JSON.parse(choice.message.content);}catch{throw new AiError('AI_OUTPUT_INVALID');}
- }catch(error){if(error instanceof AiError)throw error;throw new AiError('AI_REQUEST_FAILED');}
+ }catch(error){if(error instanceof AiError)throw error;if(error instanceof Error&&error.name==='TimeoutError')throw new AiError('AI_TIMEOUT');throw new AiError('AI_REQUEST_FAILED');}
 }

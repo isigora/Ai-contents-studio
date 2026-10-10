@@ -134,11 +134,21 @@ try{
   for(let i=0;i<10;i++)await db.query("INSERT INTO ai_interpretation(id,workspace_id,user_id,request_key,request_hash,source,model,status,cost_estimate) VALUES($1,$2,$3,$4,'fixture',$5,'mock','failed',.10)",[randomUUID(),other,A.id,randomUUID(),source]);
   const before=calls;const r=await call(A.cookie,`workspaces/${other}/interpretations`,'POST',payload,randomUUID());assert.equal(r.status,429);assert.equal(r.data.error.code,'RATE_LIMIT');assert.equal(calls,before);
  });
+ await test('Authenticated diagnostics expose only safe own-user records and never call AI',async()=>{
+  const before=calls;assert.equal((await call('','ai-diagnostics')).status,401);
+  const failed=(await db.query("SELECT id FROM ai_interpretation WHERE user_id=$1 AND status='failed' LIMIT 1",[A.id])).rows[0];
+  await db.query("UPDATE ai_interpretation SET error_code=$1,updated_at=now() WHERE id=$2",['private-customer-data-or-token',failed.id]);
+  const result=await call(A.cookie,'ai-diagnostics');assert.equal(result.status,200);
+  assert.equal(result.data.recent[0].reason,'GENERATION_FAILED');assert(!JSON.stringify(result.data).includes('private-customer'));assert(!JSON.stringify(result.data).includes(source));assert(!JSON.stringify(result.data).includes(process.env.AI_API_KEY!));
+  assert.equal((await call(B.cookie,'ai-diagnostics')).data.recent.length,0);
+  await db.query("UPDATE membership SET role='editor' WHERE workspace_id=$1 AND user_id=$2",[wid,B.id]);
+  assert.equal((await call(B.cookie,'ai-diagnostics')).data.recent.length,0);assert.equal(calls,before);
+ });
  await test('AI intake renders with consent, disabled provider and bounded input in all UI languages',async()=>{
   for(const locale of ['ko','zh','en'] as const){const html=renderToStaticMarkup(<UiLanguageProvider initialLocale={locale}><AiIntake available={false} disabled={false} onInterpret={async()=>saved} onApply={()=>{}}/></UiLanguageProvider>);
    assert(html.includes(locale==='ko'?'AI로 자료 해석하기':locale==='zh'?'使用 AI 解析资料':'Interpret materials with AI'));assert(html.includes('maxLength="12000"'));assert(html.includes('type="checkbox"'));assert(html.includes('disabled=""'));}
  });
- await writeFile('docs/ai-intake-results.json',JSON.stringify({date:new Date().toISOString(),baseline:'e9d3701605bc80f411d733b32549487ab11787c5',environment:'isolated Work PGlite, disposable users; mocked provider, zero external requests',tests:results,notRun:['Live provider/model factual quality','Browser interaction or mobile','Codespace DB migration','Image/video synthesis','External posting or agent commerce']},null,2)+'\n');
+ await writeFile('docs/ai-intake-results.json',JSON.stringify({date:new Date().toISOString(),baseline:'60eb840892c17d4e5fe959a30895fd6c0b70ef0d',environment:'isolated Work PGlite, disposable users; mocked provider, zero external requests',tests:results,notRun:['Live provider/model factual quality','Browser interaction or mobile','Codespace DB migration','Image/video synthesis','External posting or agent commerce']},null,2)+'\n');
  console.log(`${results.length} AI intake scenarios PASS`);
 }finally{globalThis.fetch=originalFetch;}
 process.exit(0);

@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-10T11:50:42.630Z",
+  "baseline": "60eb840892c17d4e5fe959a30895fd6c0b70ef0d",
+  "environment": "isolated mocked provider; no network or fees",
+  "tests": [
+    {
+      "name": "HTTP 401 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP 403 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP 400 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP 404 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP 429 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "HTTP 500 classified without raw errors",
+      "status": "PASS"
+    },
+    {
+      "name": "Billing quota is distinct from rate limit",
+      "status": "PASS"
+    },
+    {
+      "name": "Oversized error cannot leak or replace HTTP classification",
+      "status": "PASS"
+    },
+    {
+      "name": "Output truncation is distinct from malformed JSON",
+      "status": "PASS"
+    },
+    {
+      "name": "Refusal is distinct from invalid output",
+      "status": "PASS"
+    },
+    {
+      "name": "Timeout classified without its error details",
+      "status": "PASS"
+    },
+    {
+      "name": "Network errors sanitized",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown and schema errors sanitized",
+      "status": "PASS"
+    }
+  ]
+}

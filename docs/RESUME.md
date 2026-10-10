@@ -1,6 +1,12 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
+- Latest: checkpoint 010 safely classifies AI failures; authenticated /api/ai-diagnostics
+  reads five own-user recent tasks with current editor/owner access, no AI calls/data leaks.
+  User reports ready=true, profile saved, model lookup HTTP200 but text generation FAILED.
+  Root cause not known; after pull/restart, one explicit generation can record exact safe
+  reason. Do not equate model lookup with paid generation/billing success. Tests: 13 failure
+  classification + 17 intake/diagnostic cases, typecheck/build PASS (mocked, no live fees).
 - Checkpoint 009 selects OpenAI gpt-4.1-mini; review reservations $0.50/day, $10/month per
   workspace. `pnpm setup:ai-review` needs private OPENAI_API_KEY inside the Codespace.
   Work has no Codespace terminal tool; remote pull/restart/key setup NOT RUN. Do not imply

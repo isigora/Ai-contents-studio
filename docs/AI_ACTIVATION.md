@@ -106,3 +106,29 @@ Do not discard unknown changes to make a pull succeed. Keep forwarding Private.
 Work has GitHub source tools but no Codespace terminal API. Earlier automatic review
 rejected remote browser execution even after owner approval; no alternate tunnel/browser
 was attempted. Therefore these live setup/restart steps have NOT been executed by Work.
+
+## Failure diagnosis — checkpoint 010
+
+User reports local readiness success, saved OpenAI profile and model lookup HTTP200 on
+2026-10-10. These are user-provided live observations, not Work's direct remote execution.
+Actual text generation still failed. Do not infer credit availability from a model GET.
+Official error reference checked: https://developers.openai.com/api/docs/guides/error-codes
+
+After deploying/restarting 010, a generation failure shows a safe actionable classification.
+GET /api/ai-diagnostics in the same logged-in browser shows only the requesting user's latest
+five tasks in workspaces where they currently have owner/editor membership. This read-only
+route does not call AI or reveal source data, credentials, raw errors or other users' jobs.
+Old generic provider errors cannot reconstruct information that was never stored.
+
+| Reason | Action |
+|---|---|
+| AI_BILLING_QUOTA | Owner checks API credit/billing limits in their provider project |
+| AI_PERMISSION_DENIED / AI_AUTH_FAILED | Check generation endpoint/key/project permissions |
+| AI_REQUEST_INVALID | Inspect server request options before another call |
+| AI_MODEL_UNAVAILABLE | Verify model availability for generation on the selected project |
+| AI_RATE_LIMIT / AI_TIMEOUT / AI_PROVIDER_FAILED | Investigate service state; no blind retries |
+| AI_OUTPUT_INVALID / AI_OUTPUT_TRUNCATED | Correct schema or output size handling |
+| AI_SOURCE_INVALID / AI_UNSUPPORTED_NUMBER / AI_UNSUPPORTED_CLAIM | Review supplied facts/output; retain checks |
+
+No billing purchase, budget increase, automatic retry or claims-validation bypass was made.
+An explicitly initiated failed attempt may still consume a reservation and provider cost.

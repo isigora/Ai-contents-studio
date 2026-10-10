@@ -12,6 +12,7 @@ import {channels,templateVersion} from '../templates';
 import {aiConfiguration} from './ai-provider';
 import {interpretationRoute} from './interpretation-route';
 import {aiReservation,AiBudgetError} from './ai-budget';
+import {safeAiCode,aiFailureMessage} from './ai-failure';
 export class HttpError extends Error{constructor(public status:number,public code:string,message:string){super(message)}}
 function fail(status:number,code:string,message:string):never{throw new HttpError(status,code,message)}
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -36,6 +37,10 @@ export async function handle(req:Request):Promise<Response>{
   const auth=await getAuth(),session=await auth.api.getSession({headers:req.headers});
   if(!session)fail(401,'UNAUTHORIZED','먼저 로그인해 주세요.');uid=session.user.id;
   const db=await getDb();
+  if(path.length===1&&path[0]==='ai-diagnostics'&&method==='GET'){
+   const runs=await rows("SELECT r.status,r.error_code,r.updated_at,'text' AS task FROM generation_run r JOIN membership m ON m.workspace_id=r.workspace_id AND m.user_id=r.user_id WHERE r.user_id=$1 AND m.role IN('owner','editor') UNION ALL SELECT r.status,r.error_code,r.updated_at,'interpretation' AS task FROM ai_interpretation r JOIN membership m ON m.workspace_id=r.workspace_id AND m.user_id=r.user_id WHERE r.user_id=$1 AND m.role IN('owner','editor') ORDER BY updated_at DESC LIMIT 5",[uid]);
+   return json({configured:!!aiConfiguration(),recent:runs.map(r=>({task:r.task,status:r.status,updated_at:r.updated_at,...(r.status==='failed'?{reason:safeAiCode(r.error_code),message:aiFailureMessage(r.error_code)}:{})})),note:'최근 5개 본인 작업만 조회합니다. 진단 조회는 AI를 호출하지 않습니다.'});
+  }
   if(path[0]==='me'&&method==='GET'){const ws=await rows('SELECT w.*,m.role FROM workspace w JOIN membership m ON w.id=m.workspace_id WHERE m.user_id=$1 ORDER BY w.created_at',[uid]);return json({user:{id:uid,name:session.user.name,email:session.user.email},workspaces:ws,mode:aiConfiguration()?'ai':'basic',ai_intake_available:!!aiConfiguration()})}
   if(path[0]!=='workspaces')fail(404,'NOT_FOUND','경로를 찾을 수 없습니다.');
   if(path.length===1&&method==='POST'){
@@ -145,7 +150,7 @@ export async function handle(req:Request):Promise<Response>{
     try{
      const {output,mode}=await generate(reserved.snapshot!,settings);
      const cid=await db.transaction(async q=>{await access(uid,wid,true,q);const contentId=randomUUID();await q.query('INSERT INTO content(id,workspace_id,offering_id,audience_id,settings,source_snapshot,source_revision,created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8)',[contentId,wid,settings.offering_id,settings.audience_id,JSON.stringify(settings),JSON.stringify(reserved.snapshot),settings.source_revision,uid]);await q.query('INSERT INTO content_version(id,workspace_id,content_id,version,title,body,annotations,created_by) VALUES($1,$2,$3,1,$4,$5,$6,$7)',[randomUUID(),wid,contentId,output.headline,bodyOf(output),JSON.stringify({...output,mode,template_version:templateVersion,channel:settings.channel}),uid]);await q.query("UPDATE generation_run SET status='succeeded',content_id=$1,updated_at=now() WHERE workspace_id=$2 AND id=$3",[contentId,wid,reserved.runId]);await audit(q,uid,wid,'content.generated',contentId);return contentId});return json(await fullContent(db,wid,cid),201);
-    }catch(e){await rows("UPDATE generation_run SET status='failed',error_code=$1,updated_at=now() WHERE workspace_id=$2 AND id=$3",[e instanceof Error?e.message.slice(0,80):'FAILED',wid,reserved.runId]);fail(502,'GENERATION_FAILED','생성에 실패했습니다. 원천 정보는 보존되어 있습니다. 설정 확인 후 다시 시도해 주세요.');}
+    }catch(e){const reason=safeAiCode(e);await rows("UPDATE generation_run SET status='failed',error_code=$1,updated_at=now() WHERE workspace_id=$2 AND id=$3",[reason,wid,reserved.runId]);return json({error:{code:'GENERATION_FAILED',reason,message:aiFailureMessage(reason)+' 원천 정보는 보존되어 있습니다.'},run_id:reserved.runId},502);}
    }
   }
   if(resource==='contents'){

@@ -5,6 +5,7 @@ import type {Database,Queryable} from './db';
 import {aiConfiguration,AiError} from './ai-provider';
 import {interpret} from './interpretation';
 import {aiReservation,AiBudgetError} from './ai-budget';
+import {safeAiCode,aiFailureMessage} from './ai-failure';
 export async function interpretationRoute(ctx:{db:Database,uid:string,wid:string,req:Request,id?:string,parse:(req:Request)=>Promise<any>,access:(uid:string,wid:string,write:boolean,q:Queryable)=>Promise<any>,fail:(status:number,code:string,message:string)=>never}):Promise<Response>{
  const {db,uid,wid,req,id,parse,access,fail}=ctx;
  const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
@@ -49,8 +50,8 @@ export async function interpretationRoute(ctx:{db:Database,uid:string,wid:string
    await q.query("INSERT INTO audit_event(id,user_id,workspace_id,action,entity_id) VALUES($1,$2,$3,'ai.intake.succeeded',$4)",[randomUUID(),uid,wid,reserved.runId]);return row;
   });return json(present(result),201);
  }catch(error){
-  const code=error instanceof AiError?error.message:'AI_INTERPRETATION_FAILED';
+  const code=safeAiCode(error);
   await db.query("UPDATE ai_interpretation SET status='failed',error_code=$1,updated_at=now() WHERE workspace_id=$2 AND id=$3 AND status='running'",[code,wid,reserved.runId]);
-  return fail(502,'INTERPRETATION_FAILED','AI 해석에 실패했습니다. 입력 자료는 유지됩니다. 결과를 확인한 뒤 새 요청으로 다시 시도해 주세요.');
+  return json({error:{code:'INTERPRETATION_FAILED',reason:code,message:aiFailureMessage(code)+' 입력 자료는 유지됩니다.'},run_id:reserved.runId},502);
  }
 }

@@ -1,6 +1,6 @@
 # AI Content Studio — Project Status
 
-Last updated: 2026-10-06 UTC.
+Last updated: 2026-10-10 UTC.
 Repository: isigora/Ai-contents-studio. Branch: main.
 Current phase: P0/P1 AI intake preparation and preview verification; external activation pending.
 Runnable package version: 0.2.0 (P0 + P1), extracted into the repository; original ZIP retained.
@@ -265,3 +265,32 @@ live model test remain NOT RUN. Recovery is documented in docs/AI_ACTIVATION.md.
 Next unavoidable owner action: issue/store a private OPENAI_API_KEY; execute setup/restart
 in the existing Codespace. Then validate live intake/text before media→X→agent activation.
 P0/P1 PARTIAL, P2/P3 NOT STARTED. No publishing or commerce claim.
+
+## Checkpoint 010 — AI generation failure classification and private diagnostics
+Date: 2026-10-10 UTC. Baseline remote: 60eb840892c17d4e5fe959a30895fd6c0b70ef0d.
+New user evidence: Codespace readiness true (Studio/auth OK); OpenAI profile setup saved;
+model retrieval returned HTTP 200. Text generation displayed the generic failure message.
+Model lookup proves neither available billing credit nor permission/success of generation.
+Actual failure cause remains unknown; no live generation result has been certified.
+
+Implemented bounded upstream HTTP/error-code classification: authentication, permission,
+billing quota, rate limit, invalid request/model access, provider/network/timeout, refusal
+and truncated/invalid output. Existing facts/source/number checks remain strict; no automatic
+paid retry or reservation release. Error payloads and persisted new failure codes use a fixed
+allowlist; raw upstream messages, secrets and customer facts are not exposed. Unknown legacy
+stored errors are masked. Generation/intake now explain the classification in their responses.
+
+Added authenticated GET /api/ai-diagnostics: latest five own-user tasks in workspaces where
+the user currently has owner/editor membership; safe status/reason/time only. No prompts,
+sources, credential values or other users' runs. Read-only, zero AI calls, no new DB migration.
+Old AI_PROVIDER_FAILED records cannot reconstruct discarded upstream billing details;
+one explicitly initiated generation after deploying this checkpoint supplies new evidence.
+
+Fresh isolated Work checks: 13 mocked AI failure cases and 17 AI intake/diagnostic cases
+PASS; typecheck and production build PASS. Previous full regression evidence is historical,
+not rerun in this focused diagnostic checkpoint. No live provider call/payment, user DB or
+credential mutation. Original spec and unknown ZIP changes preserved.
+Deploy by inspecting/pulling latest main and restarting the existing Codespace. Retry text
+generation once within existing budget, then inspect /api/ai-diagnostics. Resolve the actual
+reported reason before media/X/agent expansion. No credits purchased, budget increased or
+claims checks loosened. P0/P1 PARTIAL; P2/P3 NOT STARTED.

@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-06T11:05:14.303Z",
-  "baseline": "e9d3701605bc80f411d733b32549487ab11787c5",
+  "date": "2026-10-10T11:50:50.683Z",
+  "baseline": "60eb840892c17d4e5fe959a30895fd6c0b70ef0d",
   "environment": "isolated Work PGlite, disposable users; mocked provider, zero external requests",
   "tests": [
     {
@@ -61,6 +61,10 @@
     },
     {
       "name": "Per-workspace interpretation rate limit blocks transmission before reservation",
+      "status": "PASS"
+    },
+    {
+      "name": "Authenticated diagnostics expose only safe own-user records and never call AI",
       "status": "PASS"
     },
     {
