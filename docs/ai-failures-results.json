@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-10T11:50:42.630Z",
+  "date": "2026-10-10T12:39:39.374Z",
   "baseline": "60eb840892c17d4e5fe959a30895fd6c0b70ef0d",
   "environment": "isolated mocked provider; no network or fees",
   "tests": [

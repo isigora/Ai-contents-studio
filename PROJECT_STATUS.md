@@ -294,3 +294,32 @@ Deploy by inspecting/pulling latest main and restarting the existing Codespace. 
 generation once within existing budget, then inspect /api/ai-diagnostics. Resolve the actual
 reported reason before media/X/agent expansion. No credits purchased, budget increased or
 claims checks loosened. P0/P1 PARTIAL; P2/P3 NOT STARTED.
+
+## Checkpoint 011 — in-Studio read-only AI diagnostics and execution blocker
+Date: 2026-10-10 UTC. Baseline remote: 86d48f5d479d3cc0bc7493a1cc4a0773347ab239.
+User authorised continued source development while live Codespace terminal access is blocked.
+Added expandable AI task diagnostics under the Studio content preview for current editors/owners.
+Explicit read-only GET retrieves five own-user tasks across currently editable workspaces;
+no auto-load, AI call, retry, budget change, DB migration or new credential. Workspace switch
+unmounts the panel and cancels requests. Safe classifications render from shared fixed messages;
+client validation strips extra fields/upstream messages, rejects malformed data, normalises UTC,
+and bounds records. Requests time out after 10 seconds. New panel labels include KR/ZH/EN;
+existing Korean-only server failure explanations remain a known localisation limitation.
+
+Fresh isolated Work checks: diagnostics request/privacy/validation/SSR checks, 13 mocked
+AI failures, 17 intake/permission/diagnostic cases, 3 locale SSR renders, typecheck and
+production build PASS. No live AI call, browser interaction or live Codespace data mutation.
+Original specification and pre-existing ZIP modification preserved. P0/P1 remain PARTIAL;
+P2/P3 NOT STARTED. Actual generation failure cause still unknown.
+
+User-provided CLI evidence: Codex 0.162.1; Linux 6.8.0-1064-azure; namespace maximum 31737;
+unprivileged_userns_clone=1; apparmor_restrict_unprivileged_userns=0; Seccomp=2 with one
+filter; docker-default (enforce); NoNewPrivs=0. Shell execution fails before Git inspection:
+`bwrap: No permissions to create new namespace`. Active container seccomp/AppArmor policy
+is confirmed; the exact denying rule is NOT established. No sandbox bypass, policy relaxation,
+remote tunnel or destructive rebuild attempted. CLI authentication does not prove shell access.
+Work has no live Codespace terminal connector. Live pull/restart and browser validation NOT RUN.
+Next: resolve supported sandbox execution with platform administrator/support; deploy latest
+main safely; Studio -> content preview -> AI task diagnostics -> Check diagnostics. This
+read-only check does not fix or reproduce generation. Inspect a current safe failure reason,
+and only explicitly generate again if necessary within the existing review budget.

@@ -1,12 +1,17 @@
 # Next session: minimal handoff
 
 - Source of truth: current main + PROJECT_STATUS.md + original Master Development Specification.
-- Latest: checkpoint 010 safely classifies AI failures; authenticated /api/ai-diagnostics
-  reads five own-user recent tasks with current editor/owner access, no AI calls/data leaks.
-  User reports ready=true, profile saved, model lookup HTTP200 but text generation FAILED.
-  Root cause not known; after pull/restart, one explicit generation can record exact safe
-  reason. Do not equate model lookup with paid generation/billing success. Tests: 13 failure
-  classification + 17 intake/diagnostic cases, typecheck/build PASS (mocked, no live fees).
+- Latest checkpoint 011: expandable read-only AI task diagnostics in Studio preview.
+  Uses explicit GET, fixed safe error messages, strict response projection, no automatic AI
+  call/retry. Diagnostic/UI tests + 13 AI failures + 17 intake cases + 3 locale renders,
+  typecheck/build PASS locally; browser/live AI remain unverified.
+- User's Codespace Codex CLI 0.162.1 authenticates but cannot execute shell commands:
+  `bwrap: No permissions to create new namespace`. Kernel namespace settings permit it;
+  seccomp filter and docker-default AppArmor are active. Exact denying rule unknown.
+  Do not bypass sandbox or relax platform policies. Supported configuration needs platform
+  admin/support review. No Codespace update/restart completed by this Work session.
+- Real AI generation still fails; model lookup HTTP200 is not generation/billing evidence.
+  After safe deployment, read diagnostics in Studio without making another model call.
 - Checkpoint 009 selects OpenAI gpt-4.1-mini; review reservations $0.50/day, $10/month per
   workspace. `pnpm setup:ai-review` needs private OPENAI_API_KEY inside the Codespace.
   Work has no Codespace terminal tool; remote pull/restart/key setup NOT RUN. Do not imply
@@ -16,7 +21,7 @@
   See docs/AI_ACTIVATION.md; provider/model/cost approval required before live calls.
 - User reports live preview opens and login works after manual startup. First SNS is X.
   Final product direction and agent requirements: docs/PRODUCT_DIRECTION.md.
-- Next user action: pull 008 and restart dev server for schema/cache refresh. Then verify
+- Next deployment action: safely pull current main and restart the existing app server. Then verify
   overview → quick entry → X text generation → editing/version/export in the browser.
 - Fresh tests: 15 mocked AI intake + 10 quick-start server/SSR scenarios, auth origins, full existing
   acceptance/persistence/locales, readiness/diagnostics, typecheck and build PASS.

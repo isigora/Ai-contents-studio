@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-10T11:50:50.683Z",
+  "date": "2026-10-10T12:39:49.348Z",
   "baseline": "60eb840892c17d4e5fe959a30895fd6c0b70ef0d",
   "environment": "isolated Work PGlite, disposable users; mocked provider, zero external requests",
   "tests": [

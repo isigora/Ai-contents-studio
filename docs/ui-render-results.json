@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-06T11:04:40.901Z",
+  "date": "2026-10-10T12:41:23.942Z",
   "status": "PASS",
   "locales": [
     "ko",
     "zh",
     "en"
   ],
-  "translationEntries": 365,
+  "translationEntries": 376,
   "scope": "React SSR of actual review/media components; locale labels and unchanged user content. Not browser interaction."
 }

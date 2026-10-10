@@ -23,7 +23,8 @@
     "test:ai-intake": "node --import tsx tests/ai-intake.tsx",
     "setup:ai-review": "node scripts/configure-ai-review.mjs",
     "test:ai-review": "node tests/ai-review.mjs",
-    "test:ai-failures": "node --import tsx tests/ai-failures.ts"
+    "test:ai-failures": "node --import tsx tests/ai-failures.ts",
+    "test:ai-diagnostics": "node --import tsx tests/ai-diagnostics.tsx"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1136.0",
